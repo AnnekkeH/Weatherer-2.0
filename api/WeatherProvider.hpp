@@ -1,18 +1,28 @@
-#ifndef FOXTROT_WEATHERPROVIDER_HPP
-#define FOXTROT_WEATHERPROVIDER_HPP
+#pragma once
 
 #include <string>
+#include <nlohmann/json.hpp>
 
 namespace weather {
     class WeatherProvider {
+    using json = nlohmann::json;
+    private:
+        std::string base_url{};
+        json json_data{};
+        std::string location{};
+
     public:
-        // Do NOT allow an instance of this class to be created
-        WeatherProvider() = delete;
+        WeatherProvider(const std::string& location);
 
         [[nodiscard]]
-        static std::string get_data(const std::string& location) noexcept;
+        std::string get_base_url() const;
+        [[nodiscard]]
+        json get_json_data() const;
+        [[nodiscard]]
+        std::string get_location() const;
+        [[nodiscard]]
+        json get_forecast() const;
+        [[nodiscard]]
+        json forecast_hourly() const;
     };
 }
-
-
-#endif //FOXTROT_WEATHERPROVIDER_HPP

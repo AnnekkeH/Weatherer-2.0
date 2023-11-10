@@ -1,12 +1,30 @@
 #include "WeatherProvider.hpp"
-#include <cpr/cpr.h>
+#include "../util/network/NetworkUtils.hpp"
+#include <nlohmann/json.hpp>
 
-std::string weather::WeatherProvider::get_data(const std::string& location) noexcept {
-    const cpr::Response response = cpr::Get(
-        cpr::Url{ "https://api.weather.gov/points/" + location });
-    if (response.status_code != 200) {
-        return std::string{};
-    }
+weather::WeatherProvider::WeatherProvider(const std::string& location) : location(location) {
+	this->base_url = "https://api.weather.gov/points/" + location;
+	this->json_data = json::parse(weather::NetworkUtils::get_http_response(this->base_url));
+}
 
-    return response.text;
+std::string weather::WeatherProvider::get_base_url() const {
+	return this->base_url;
+}
+
+weather::WeatherProvider::json weather::WeatherProvider::get_json_data() const {
+	return this->json_data;
+}
+
+std::string weather::WeatherProvider::get_location() const {
+	return this->location;
+}
+
+weather::WeatherProvider::json weather::WeatherProvider::get_forecast() const {
+	return weather::NetworkUtils::get_http_response(
+		weather::NetworkUtils::get_http_data(this->get_json_data(), "properties", "forecast"));
+}
+
+weather::WeatherProvider::json weather::WeatherProvider::forecast_hourly() const {
+	return weather::NetworkUtils::get_http_response(
+		weather::NetworkUtils::get_http_data(this->get_json_data(), "properties", "forecastHourly"));
 }
