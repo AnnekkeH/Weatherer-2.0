@@ -1,0 +1,3 @@
+install
+cpr
+nlohmann-json
