@@ -19,12 +19,12 @@ std::string weather::WeatherProvider::get_location() const {
 	return this->location;
 }
 
-weather::WeatherProvider::json weather::WeatherProvider::get_forecast() const {
+nlohmann::json weather::WeatherProvider::get_two_week_forecast() const {
 	return weather::NetworkUtils::get_http_response(
 		weather::NetworkUtils::get_http_data(this->get_json_data(), "properties", "forecast"));
 }
 
-weather::WeatherProvider::json weather::WeatherProvider::forecast_hourly() const {
+nlohmann::json weather::WeatherProvider::forecast_hourly() const {
 	return weather::NetworkUtils::get_http_response(
 		weather::NetworkUtils::get_http_data(this->get_json_data(), "properties", "forecastHourly"));
 }
