@@ -6,9 +6,12 @@ find_package(nlohmann_json CONFIG REQUIRED)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(Weatherer "main.cpp"
-        "api/WeatherProvider.cpp"
-        "api/WeatherProvider.hpp"  "util/network/NetworkUtils.hpp" "util/network/NetworkUtils.cpp")
+
+add_executable(Weatherer "src/main.cpp"
+        "src/api/WeatherProvider.cpp"
+        "src/api/WeatherProvider.hpp" 
+        "src/util/network/NetworkUtils.hpp" 
+        "src/util/network/NetworkUtils.cpp")
 
 target_link_libraries(Weatherer PRIVATE cpr::cpr)
 target_link_libraries(Weatherer PRIVATE nlohmann_json::nlohmann_json)

@@ -39,7 +39,7 @@ namespace weather {
 		* @return: The value of the specified properties as a string
 		*/
 		template <class... Keys, typename = std::enable_if_t<(sizeof...(Keys) > 0)>>
-			static std::string get_http_data(const std::string& uri, const Keys&... properties) {
+		static std::string get_http_data(const std::string& uri, const Keys&... properties) {
 			const json data = json::parse(get_http_response(uri));
 			return get_http_data(data, properties...);
 		}
@@ -51,7 +51,7 @@ namespace weather {
 		* @return: The value of the specified properties as a string
 		*/
 		template <class... Keys, typename = std::enable_if_t<(sizeof...(Keys) > 0)>>
-			static std::string get_http_data(const json& json_data, const Keys&... properties) {
+		static std::string get_http_data(const json& json_data, const Keys&... properties) {
 			return access_json_property(json_data, properties...);
 		}
 	};
