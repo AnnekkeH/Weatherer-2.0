@@ -1,11 +1,8 @@
-#include <iostream>
 #include <memory>
-#include "api/WeatherProvider.hpp"
-#include "util/network/NetworkUtils.hpp"
-#include <nlohmann/json.hpp>
+#include "api/PVMetrics.hpp"
 
 int main() {
-    const auto weather_provider = std::make_unique<weather::WeatherProvider>("37.11713922134418,-113.61091493319164");
-    std::cout << weather_provider->get_two_week_forecast().dump(4) << "\n";
-    return 0;
+	weatherer::PVMetrics const pv{ 52.52, 13.41 };
+	std::shared_ptr<weatherer::PvData> data = pv.get_pv_data();
+	// print the data
 }
