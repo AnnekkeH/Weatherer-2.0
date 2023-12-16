@@ -5,6 +5,7 @@
 #include <nlohmann/json.hpp>
 #include <ranges>
 
+[[nodiscard]]
 cpr::Response weatherer::PvHandler::get_http_data(const Coordinates& coords, const std::string& date) {
 	cpr::Parameters prams{};
 	prams.Add(cpr::Parameter{"longitude", std::to_string(coords.first)});
@@ -28,6 +29,7 @@ cpr::Response weatherer::PvHandler::get_http_data(const Coordinates& coords, con
 	return res;
 }
 
+[[nodiscard]]
 weatherer::PvDataPtr weatherer::PvHandler::get_pv_data(const Coordinates& coords, const std::string& date) {
 	using Json = nlohmann::json;
 
@@ -47,6 +49,7 @@ weatherer::PvDataPtr weatherer::PvHandler::get_pv_data(const Coordinates& coords
 }
 
 //TODO(OneCheetah): The max start date is 10 days in the past, implement a different API for longer periods.
+[[nodiscard]]
 std::shared_ptr<std::map<std::string, weatherer::PvDataPtr>> weatherer::PvHandler::generate_pv_data(
 	const Coordinates& coords, const std::string& start_date, const std::string& end_date) {
 

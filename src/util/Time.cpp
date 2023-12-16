@@ -3,6 +3,7 @@
 #include <array>
 #include <cmath>
 
+[[nodiscard]]
 weatherer::util::DateTimeInfo weatherer::util::Time::get_current_date() {
 	std::chrono::time_point now = std::chrono::system_clock::now();
 	std::chrono::time_point date = std::chrono::floor<std::chrono::days>(now);
@@ -20,6 +21,7 @@ weatherer::util::DateTimeInfo weatherer::util::Time::get_current_date() {
 	return DateTimeInfo{{buffer.data()}, time};
 }
 
+[[nodiscard]]
 weatherer::util::DateTimeInfo weatherer::util::Time::get_past_date(std::uint32_t days) {
 	if (days == 0) {
 		return get_current_date();
@@ -41,6 +43,7 @@ weatherer::util::DateTimeInfo weatherer::util::Time::get_past_date(std::uint32_t
 	return DateTimeInfo{{buffer.data()}, time};
 }
 
+[[nodiscard]]
 weatherer::util::DateTimeInfo weatherer::util::Time::get_future_date(std::uint32_t days) {
 	if (days == 0) {
 		return get_current_date();
@@ -62,6 +65,7 @@ weatherer::util::DateTimeInfo weatherer::util::Time::get_future_date(std::uint32
 	return DateTimeInfo{{buffer.data()}, time};
 }
 
+[[nodiscard]]
 std::chrono::system_clock::time_point weatherer::util::Time::parse_date(const std::string& date) {
 	std::tm tm{};
 	std::istringstream ss{date};
@@ -69,6 +73,7 @@ std::chrono::system_clock::time_point weatherer::util::Time::parse_date(const st
 	return std::chrono::system_clock::from_time_t(std::mktime(&tm));
 }
 
+[[nodiscard]]
 int weatherer::util::Time::difference_in_days(const std::string& first, const std::string& second) {
 	const std::chrono::system_clock::time_point start_date = parse_date(first);
 	const std::chrono::system_clock::time_point end_date = parse_date(second);

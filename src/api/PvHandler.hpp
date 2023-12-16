@@ -27,11 +27,14 @@ namespace weatherer {
 
 	class PvHandler {
 		static constexpr std::string_view api_base_url_{"https://api.open-meteo.com/v1/forecast"};
+		[[nodiscard]]
 		static cpr::Response get_http_data(Coordinates const& coords, std::string const& date);
 
 
 	public:
+		[[nodiscard]]
 		static PvDataPtr get_pv_data(Coordinates const& coords, std::string const& date);
+		[[nodiscard]]
 		static std::shared_ptr<std::map<std::string, PvDataPtr>> generate_pv_data(
 			Coordinates const& coords, std::string const& start_date, std::string const& end_date);
 	};

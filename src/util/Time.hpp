@@ -19,10 +19,15 @@ namespace weatherer::util {
 		Time() = delete;
 		~Time() = delete;
 
+		[[nodiscard]]
 		static DateTimeInfo get_current_date();
+		[[nodiscard]]
 		static DateTimeInfo get_past_date(std::uint32_t days);
+		[[nodiscard]]
 		static DateTimeInfo get_future_date(std::uint32_t days);
+		[[nodiscard]]
 		static int difference_in_days(const std::string& first, const std::string& second);
+		[[nodiscard]]
 		static std::chrono::system_clock::time_point parse_date(const std::string& date);
 	};
 }
