@@ -1,8 +1,13 @@
-#include <memory>
-#include "api/PVMetrics.hpp"
+#include "api/PvHandler.hpp"
+#include <utility>
+#include <chrono>
+#include <iostream>
 
 int main() {
-	weatherer::PVMetrics const pv{ 52.52, 13.41 };
-	std::shared_ptr<weatherer::PvData> data = pv.get_pv_data();
-	// print the data
+	const auto map = 
+		weatherer::PvHandler::generate_pv_data({52.52, 13.41}, "2023-12-05", "2023-12-15");
+
+	for (const auto& [key, value] : *map) {
+		std::cout << key << "\n" << *value << "\n";
+	}
 }

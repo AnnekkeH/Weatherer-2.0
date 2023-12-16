@@ -28,7 +28,10 @@ target_sources(CXX_MODULES
 ]===]
 
 
-add_executable(Weatherer "src/main.cpp" "src/api/PvMetrics.cpp")
+add_executable(Weatherer "src/main.cpp" 
+    "src/api/PvHandler.cpp"
+    "src/util/Time.cpp" 
+)
 
 # target_link_libraries(Weatherer PRIVATE CXX_MODULES)
 
