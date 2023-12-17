@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.28)
+cmake_minimum_required(VERSION 3.27)
 project(
     Weatherer
     VERSION 0.1.0
@@ -7,34 +7,23 @@ project(
 
 find_package(cpr CONFIG REQUIRED)
 find_package(nlohmann_json CONFIG REQUIRED)
+find_package(range-v3 CONFIG REQUIRED)
 
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD 20)
-# set(CMAKE_CXX_SCAN_FOR_MODULES ON)
 
 include_directories("src")
-# include_directories("include")
 
-set(CMAKE_TOOLCHAIN_FILE "${CMAKE_TOOLCHAIN_FILE}" "${CMAKE_BINARY_DIR}/vcpkg.cmake")
-
-# add_library(CXX_MODULES)
-#[===[
-target_sources(CXX_MODULES
-  PUBLIC
-    FILE_SET CXX_MODULES FILES
-    "src/api/PVMetrics.ixx"
-  
-)
-]===]
-
-
-add_executable(Weatherer "src/main.cpp" 
-    "src/api/PvHandler.cpp"
-    "src/util/Time.cpp" 
+set (SOURCES 
+    src/main.cpp
+    src/api/PvHandler.cpp
+    src/api/PvHandler.hpp
+    src/util/Streams.hpp
+    src/util/Time.cpp
+    src/util/Time.hpp
 )
 
-# target_link_libraries(Weatherer PRIVATE CXX_MODULES)
-
+add_executable(Weatherer ${SOURCES})
 target_link_libraries(Weatherer PRIVATE cpr::cpr)
 target_link_libraries(Weatherer PRIVATE nlohmann_json::nlohmann_json)
-
+target_link_libraries(Weatherer PRIVATE range-v3::meta range-v3::concepts range-v3::range-v3)
