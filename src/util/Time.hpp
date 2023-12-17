@@ -24,7 +24,11 @@ namespace weatherer::util {
 		[[nodiscard]]
 		static DateTimeInfo get_past_date(std::uint32_t days);
 		[[nodiscard]]
+		static DateTimeInfo get_past_date(const std::string& start_date, std::uint32_t days);
+		[[nodiscard]]
 		static DateTimeInfo get_future_date(std::uint32_t days);
+		[[nodiscard]]
+		static DateTimeInfo get_future_date(const std::string& start_date, std::uint32_t days);
 		[[nodiscard]]
 		static int difference_in_days(const std::string& first, const std::string& second);
 		[[nodiscard]]

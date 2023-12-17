@@ -23,20 +23,38 @@ namespace weatherer {
 	};
 
 	using PvDataPtr = std::shared_ptr<PvData>;
+	using BulkPvDataPtr = std::shared_ptr<std::map<std::string, PvDataPtr>>;
 	using Coordinates = std::pair<double, double>;
 
 	class PvHandler {
-		static constexpr std::string_view api_base_url_{"https://api.open-meteo.com/v1/forecast"};
+		static constexpr std::string_view api_url_{"https://api.open-meteo.com/v1/forecast"};
+		static constexpr std::string_view historical_api_url_{"https://archive-api.open-meteo.com/v1/archive"};
+
 		[[nodiscard]]
-		static cpr::Response get_http_data(Coordinates const& coords, std::string const& date);
+		static cpr::Response get_http_data(const Coordinates& coords, const std::string& date);
+
+		[[nodiscard]]
+		static cpr::Response get_http_data(const Coordinates& coords, const std::string& start_date,
+		                                   const std::string& end_date);
+
+		[[nodiscard]]
+		static cpr::Response get_historical_http_data(const Coordinates& coords, const std::string& date);
+
+		[[nodiscard]]
+		static cpr::Response get_historical_http_data(const Coordinates& coords, const std::string& start_date,
+		                                              const std::string& end_date);
+
+		static BulkPvDataPtr generate(const std::string& response, const std::string& start_date,
+		                              const std::string& end_date);
 
 
 	public:
 		[[nodiscard]]
-		static PvDataPtr get_pv_data(Coordinates const& coords, std::string const& date);
+		static PvDataPtr get_data(const Coordinates& coords, const std::string& date);
+
 		[[nodiscard]]
-		static std::shared_ptr<std::map<std::string, PvDataPtr>> generate_pv_data(
-			Coordinates const& coords, std::string const& start_date, std::string const& end_date);
+		static std::shared_ptr<std::map<std::string, PvDataPtr>> aggregate(
+			const Coordinates& coords, const std::string& start_date, const std::string& end_date);
 	};
 
 	inline std::ostream& operator<<(std::ostream& os, const PvData& obj) {
@@ -51,4 +69,3 @@ namespace weatherer {
 		return os;
 	}
 }
-

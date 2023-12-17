@@ -4,9 +4,8 @@
 #include <iostream>
 
 int main() {
-	const auto map = 
-		weatherer::PvHandler::generate_pv_data({52.52, 13.41}, "2023-12-05", "2023-12-15");
-
+	const weatherer::BulkPvDataPtr map =
+		weatherer::PvHandler::aggregate({52.52, 13.41}, "2023-12-01", "2023-12-18");
 	for (const auto& [key, value] : *map) {
 		std::cout << key << "\n" << *value << "\n";
 	}
