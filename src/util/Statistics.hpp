@@ -5,6 +5,9 @@
 namespace weatherer::util {
     class Statistics {
     public:
+        Statistics() = delete;
+        ~Statistics() = delete;
+
         template<typename Ty_,
             typename = std::enable_if_t<std::is_arithmetic_v<typename Ty_::value_type>>>
         [[nodiscard]]
