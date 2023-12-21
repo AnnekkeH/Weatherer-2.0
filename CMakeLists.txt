@@ -21,6 +21,7 @@ set (SOURCES
     src/util/Streams.hpp
     src/util/Time.cpp
     src/util/Time.hpp
+    src/util/Statistics.hpp
 )
 
 add_executable(Weatherer ${SOURCES})
