@@ -9,7 +9,6 @@ class PvMetrics {
  private:
   static double CalculateSolarIrradiance(const PvData& pv_data);
   static int CalculateSolarNoonTime(const PvData& pv_data);
-  static int GetDayOfYear(const PvData& pv_data);
 
  public:
   PvMetrics() = delete;
