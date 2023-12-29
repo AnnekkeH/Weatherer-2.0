@@ -10,18 +10,14 @@
 double weatherer::PvMetrics::CalculateSolarIrradiance(const PvData& pv_data) {
   std::vector<double> hourly_sum(24);
 
-  // Fill the vector with sums of direct and diffuse radiation
-  std::iota(hourly_sum.begin(), hourly_sum.end(),
-            0);  // Just a placeholder; replace with actual values
+  std::iota(hourly_sum.begin(), hourly_sum.end(), 0);
 
-  // Transform the vector to contain the sum of direct and diffuse radiation for each hour
   std::ranges::transform(hourly_sum.begin(), hourly_sum.end(),
                          hourly_sum.begin(), [pv_data](const int hour) {
                            return pv_data.GetDirectRadiation().at(hour) +
                                   pv_data.GetDiffuseRadiation().at(hour);
                          });
 
-  // Calculate the median of the hourly sums
   const double overallMedian = util::Statistics::Mean(hourly_sum);
   return overallMedian;
 }
@@ -32,7 +28,6 @@ int weatherer::PvMetrics::CalculateSolarNoonTime(const PvData& pv_data) {
 
   const auto duration = sunset_time - sunrise_time;
 
-  // Calculate the midpoint duration
   const auto midpoint_duration = duration / 2;
 
   const auto solar_noon = sunrise_time + midpoint_duration;
@@ -47,12 +42,13 @@ int weatherer::PvMetrics::CalculateSolarNoonTime(const PvData& pv_data) {
 double weatherer::PvMetrics::CalculateDailyEnergyYeild(
     PvData const& pv_data, Coordinates const& coordinates,
     std::string const& date, const double panel_eff, const double panel_area) {
+  using namespace util;
+
   const auto convert_to_radians = [](const double degrees) {
     return degrees * (std::numbers::pi / 180);
   };
 
-  const double average_temperature =
-      util::Statistics::Mean(pv_data.GetTemperature());
+  const double average_temperature = Statistics::Mean(pv_data.GetTemperature());
   const double average_cloud_cover = static_cast<double>(util::Statistics::Mean(
                                          pv_data.GetCloudCoverTotal())) /
                                      100;
@@ -62,10 +58,11 @@ double weatherer::PvMetrics::CalculateDailyEnergyYeild(
 
   const int solar_time = CalculateSolarNoonTime(pv_data);
   const int day_of_year =
-      util::Time::ConvertTimePointToTm(util::Time::ParseDate(date)).tm_yday;
+      Time::ConvertTimePointToTm(util::Time::ParseDate(date)).tm_yday;
 
   // Calculate solar declination angle (δ)
-  const double sollar_declination = 23.45 * sin((365 / 360) * (day_of_year - 81));
+  const double sollar_declination =
+      23.45 * sin((365 / 360) * (day_of_year - 81));
   const double radians_sollar_declination =
       convert_to_radians(sollar_declination);
 
@@ -84,12 +81,12 @@ double weatherer::PvMetrics::CalculateDailyEnergyYeild(
       asin(sin(radians_latitude) * sin(radians_sollar_declination) +
            cos(radians_latitude) * cos(radians_sollar_declination) *
                cos(convert_to_radians(hour_angle)));
-  const double incidentAngleFactor = cos(solar_zentith_angle);
+  const double incident_angle_factor = cos(solar_zentith_angle);
 
   // Adjust irradiance with factors
-  const double adjusted_irradiance = solar_irradiance * latitude_factor *
-                                     temperature_factor * incidentAngleFactor *
-                                     (1 - average_cloud_cover);
+  const double adjusted_irradiance =
+      solar_irradiance * latitude_factor * temperature_factor *
+      incident_angle_factor * (1 - average_cloud_cover);
 
   return adjusted_irradiance * panel_eff * panel_area;
 }
