@@ -27,6 +27,8 @@ set (SOURCES
         src/api/models/PvData.hpp
         src/api/PvMetrics.cpp
         src/api/PvMetrics.hpp
+        src/api/PvDataProcessor.hpp
+        src/api/PvDataProcessor.cpp
 )
 
 add_executable(Weatherer ${SOURCES})

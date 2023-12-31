@@ -1,166 +1,113 @@
 #include "PvHandler.hpp"
 
-#include <cpr/cpr.h>
+#include <ostream>
+// #include <iomanip>
+// #include <print>
 
-#include <memory>
+#include "PvMetrics.hpp"
 
-#include <ranges>
+weatherer::PvHandler::PvHandler(Coordinates const& coords,
+                                util::TimeFrame const& time_frame)
+    : coords_{coords},
+      time_frame_{time_frame},
+      pv_collection_(PvDataProcessor::AggregateAllData(coords, time_frame)) {}
 
-#include <nlohmann/json.hpp>
+weatherer::PvHandler::~PvHandler() = default;
 
-#include "util/ChunkOperator.hpp"
+weatherer::PvHandler::PvHandler(const PvHandler& other) = default;
 
-#include "util/Time.hpp"
+weatherer::PvHandler::PvHandler(PvHandler&& other) noexcept
+    : coords_(std::move(other.coords_)),
+      time_frame_(std::move(other.time_frame_)),
+      pv_collection_(std::move(other.pv_collection_)) {}
 
-[[nodiscard]] cpr::Response weatherer::PvHandler::GetHttpData(
-    const Coordinates& coords, const std::string& date) {
-  return GetHttpData(coords, {date, date});
+weatherer::PvHandler& weatherer::PvHandler::operator=(const PvHandler& other) {
+  if (this == &other)
+    return *this;
+  coords_ = other.coords_;
+  time_frame_ = other.time_frame_;
+  pv_collection_ = other.pv_collection_;
+  return *this;
 }
 
-cpr::Response weatherer::PvHandler::GetHttpData(
-    const Coordinates& coords, util::TimeFrame const& time_frame) {
-  cpr::Parameters prams{};
-  prams.Add(cpr::Parameter{"longitude", std::to_string(coords.GetLatitude())});
-  prams.Add(cpr::Parameter{"latitude", std::to_string(coords.GetLongitude())});
-  prams.Add(cpr::Parameter{"daily", "sunrise"});
-  prams.Add(cpr::Parameter{"daily", "sunset"});
-  prams.Add(cpr::Parameter{"hourly", "temperature_2m"});
-  prams.Add(cpr::Parameter{"hourly", "cloud_cover"});
-  prams.Add(cpr::Parameter{"hourly", "wind_speed_10m"});
-  prams.Add(cpr::Parameter{"hourly", "direct_radiation"});
-  prams.Add(cpr::Parameter{"hourly", "diffuse_radiation"});
-  prams.Add(cpr::Parameter{"start_date", time_frame.start_date_});
-  prams.Add(cpr::Parameter{"end_date", time_frame.end_date_});
-  prams.Add(cpr::Parameter{"temperature_unit", "celcius"});
+weatherer::PvHandler& weatherer::PvHandler::operator=(
+    PvHandler&& other) noexcept {
+  if (this == &other)
+    return *this;
+  coords_ = other.coords_;
+  time_frame_ = other.time_frame_;
+  pv_collection_ = std::move(other.pv_collection_);
+  return *this;
+}
 
-  cpr::Response res = cpr::Get(cpr::Url{api_url_}, prams);
-  if (res.status_code != 200) {
-    throw std::runtime_error(
-        "An error has occurred whilst fetching HTTP data. Status code: " +
-        std::to_string(res.status_code));
+bool weatherer::PvHandler::VaildateSolarPanelEfficiency(
+    const double panel_eff) {
+  [[unlikely]] if (panel_eff < 0 || panel_eff > 1) { return false; }
+  return true;
+}
+
+bool weatherer::PvHandler::VaildateSolarPanelArea(const double panel_area) {
+  [[unlikely]] if (panel_area <= 0) { return false; }
+  return true;
+}
+
+// void weatherer::PvHandler::PrintData() const {
+//   for (const auto& [key, value] : *pv_collection_) {
+//     std::println("{}", key);
+//     std::cout << *value << "\n";
+//   }
+// }
+
+void weatherer::PvHandler::OutputData(std::ostream& os) const {
+  for (const auto& [key, value] : *pv_collection_) {
+    os << key << "\n" << *value << "\n";
   }
-  return res;
 }
 
-cpr::Response weatherer::PvHandler::GetHistoricalHttpData(
-    const Coordinates& coords, const std::string& date) {
-  return GetHistoricalHttpData(coords, {date, date});
-}
+// void weatherer::PvHandler::PrintDailyEnergyYeild(
+//     const double panel_eff, const double panel_area) const {
+//   if (!VaildateSolarPanelEfficiency(panel_eff)) {
+//     throw std::invalid_argument(
+//         "Solar panel efficiency must be a value between 0 and 1 (inclusive)");
+//   }
+//
+//   if (!VaildateSolarPanelArea(panel_area)) {
+//     throw std::invalid_argument(
+//         "Solar panel area must be a value greater than 0");
+//   }
+//
+//   for (const auto& [key, value] : *pv_collection_) {
+//     std::println("{}", key);
+//     std::println("{} kWh\n",
+//                  std::round(PvMetrics::CalculateDailyEnergyYeild(
+//                                 *value, coords_, key, panel_eff, panel_area) *
+//                             1000.0) /
+//                      1000.0);
+//   }
+// }
 
-cpr::Response weatherer::PvHandler::GetHistoricalHttpData(
-    const Coordinates& coords, const util::TimeFrame& time_frame) {
-  cpr::Parameters prams{};
-  prams.Add(cpr::Parameter{"longitude", std::to_string(coords.GetLatitude())});
-  prams.Add(cpr::Parameter{"latitude", std::to_string(coords.GetLongitude())});
-  prams.Add(cpr::Parameter{"daily", "sunrise"});
-  prams.Add(cpr::Parameter{"daily", "sunset"});
-  prams.Add(cpr::Parameter{"hourly", "temperature_2m"});
-  prams.Add(cpr::Parameter{"hourly", "cloud_cover"});
-  prams.Add(cpr::Parameter{"hourly", "wind_speed_10m"});
-  prams.Add(cpr::Parameter{"hourly", "direct_radiation"});
-  prams.Add(cpr::Parameter{"hourly", "diffuse_radiation"});
-  prams.Add(cpr::Parameter{"start_date", time_frame.start_date_});
-  prams.Add(cpr::Parameter{"end_date", time_frame.end_date_});
-
-  cpr::Response res = cpr::Get(cpr::Url{historical_api_url_}, prams);
-  if (res.status_code != 200) {
-    throw std::runtime_error(
-        "An error has occurred whilst fetching HTTP data. Status code: " +
-        std::to_string(res.status_code));
+void weatherer::PvHandler::OutputDailyEnergyYeild(
+    std::ostream& os, const double panel_eff, const double panel_area) const {
+  if (!VaildateSolarPanelEfficiency(panel_eff)) {
+    throw std::invalid_argument(
+        "Solar panel efficiency must be a value between 0 and 1 (inclusive)");
   }
-  return res;
+
+  if (!VaildateSolarPanelArea(panel_area)) {
+    throw std::invalid_argument(
+        "Solar panel area must be a value greater than 0");
+  }
+
+  // os << std::setprecision(3);
+  for (const auto& [key, value] : *pv_collection_) {
+    os << key << "\n"
+       << PvMetrics::CalculateDailyEnergyYeild(*value, coords_, key, panel_eff,
+                                               panel_area)
+       << " kWh\n\n";
+  }
 }
 
-[[nodiscard]] weatherer::PvDataPtr weatherer::PvHandler::GetData(
-    const Coordinates& coords, const std::string& date) {
-  using Json = nlohmann::json;
-
-  const cpr::Response res = GetHttpData(coords, date);
-  const Json json = Json::parse(res.text);
-
-  auto pv_data = std::make_shared<PvData>();
-
-  pv_data->SetSunriseTime(json.at("daily").at("sunrise").at(0));
-  pv_data->SetSunsetTime(json.at("daily").at("sunset").at(0));
-  pv_data->SetDiffuseRadiation(json.at("hourly").at("diffuse_radiation"));
-  pv_data->SetDirectRadiation(json.at("hourly").at("direct_radiation"));
-  pv_data->SetTemperature(json.at("hourly").at("temperature_2m"));
-  pv_data->SetCloudCoverTotal(json.at("hourly").at("cloud_cover"));
-  pv_data->SetWindSpeed(json.at("hourly").at("wind_speed_10m"));
-  return pv_data;
+inline weatherer::PvCollectionPtr weatherer::PvHandler::GetPvCollection() const {
+  return pv_collection_;
 }
 
-weatherer::BulkPvDataPtr weatherer::PvHandler::Generate(
-    const std::string& response, const util::TimeFrame& time_frame) {
-  using namespace util;
-  using Json = nlohmann::json;
-  int total_days =
-      Time::DifferenceInDays(time_frame.start_date_, time_frame.end_date_);
-
-  auto data = std::make_shared<std::map<std::string, PvDataPtr>>();
-  Json json = Json::parse(response);
-
-  const auto hourly = json.at("hourly");
-  const int split_amount = total_days + 1;
-
-
-  const auto diffuse_radiations =
-      ChunkVector<int, 24>(hourly.at("diffuse_radiation"), split_amount);
-  const auto direct_radiations =
-      ChunkVector<int, 24>(hourly.at("direct_radiation"), split_amount);
-  const auto temperatures =
-      ChunkVector<double, 24>(hourly.at("temperature_2m"), split_amount);
-  const auto cloud_cover_totals =
-      ChunkVector<int, 24>(hourly.at("cloud_cover"), split_amount);
-  const auto wind_speeds =
-      ChunkVector<double, 24>(hourly.at("wind_speed_10m"), split_amount);
-
-  for (const int i : std::ranges::views::iota(0, total_days)) {
-    const auto [date, val] = Time::GetFutureDate(time_frame.start_date_, i + 1);
-
-    auto pv_data = std::make_shared<PvData>();
-    pv_data->SetSunriseTime(json.at("daily").at("sunrise").at(i));
-    pv_data->SetSunsetTime(json.at("daily").at("sunset").at(i));
-    pv_data->SetDiffuseRadiation(diffuse_radiations.at(i));
-    pv_data->SetDirectRadiation(direct_radiations.at(i));
-    pv_data->SetTemperature(temperatures.at(i));
-    pv_data->SetCloudCoverTotal(cloud_cover_totals.at(i));
-    pv_data->SetWindSpeed(wind_speeds.at(i));
-
-    data->insert({date, pv_data});
-  }
-  return data;
-}
-
-[[nodiscard]] weatherer::BulkPvDataPtr weatherer::PvHandler::AggregateData(
-    const Coordinates& coords, util::TimeFrame const& time_frame) {
-  using namespace util;
-
-  // If we started in the past and ended in the past
-  const std::string start_date = time_frame.start_date_;
-  const std::string end_date = time_frame.end_date_;
-  if (Time::DifferenceInDays(start_date, end_date) >= 14 &&
-      Time::DifferenceInDays(end_date, Time::GetCurrentDate().time_) >= 5) {
-    const std::string response = GetHistoricalHttpData(coords, time_frame).text;
-    return Generate(response, time_frame);
-  }
-  // If we started in the past and ended in the future
-  if (Time::DifferenceInDays(start_date, end_date) >= 14 &&
-      Time::DifferenceInDays(end_date, Time::GetCurrentDate().time_) <= 5) {
-    const auto five_days_ago = Time::GetPastDate(5).time_;
-    const std::string first_reponse =
-        GetHistoricalHttpData(coords, {start_date, five_days_ago}).text;
-    const std::string second_reponse =
-        GetHttpData(coords, {five_days_ago, end_date}).text;
-
-    const BulkPvDataPtr first_data =
-        Generate(first_reponse, {start_date, Time::GetPastDate(5).time_});
-    const BulkPvDataPtr second_data =
-        Generate(second_reponse, {five_days_ago, end_date});
-
-    first_data->insert(second_data->begin(), second_data->end());
-    return first_data;
-  }
-  // If we started in the future and ended in the future
-  return Generate(GetHttpData(coords, time_frame).text, time_frame);
-};
