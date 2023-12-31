@@ -25,7 +25,7 @@ weatherer::util::Time::GetCurrentDate() {
 }
 
 [[nodiscard]] weatherer::util::DateTimeInfo weatherer::util::Time::GetPastDate(
-    std::uint32_t days) {
+    const std::uint32_t days) {
   if (days == 0) {
     return GetCurrentDate();
   }
@@ -59,7 +59,7 @@ weatherer::util::DateTimeInfo weatherer::util::Time::GetFutureDate(
           date + std::chrono::days(days));
 
   const std::time_t time = std::chrono::system_clock::to_time_t(midnight);
-  std::tm tm;
+  std::tm tm{};
 
   localtime_s(&tm, &time);
 
@@ -90,7 +90,7 @@ weatherer::util::Time::ParseDate(const std::string& date) {
 
 std::chrono::system_clock::time_point weatherer::util::Time::ParseTime(
     const std::string& time) {
-  std::tm time_tm = {};
+  std::tm time_tm{};
   std::istringstream ss(time);
   ss >> std::get_time(&time_tm, "%Y-%m-%dT%H:%M");
 
@@ -107,7 +107,7 @@ std::chrono::system_clock::time_point weatherer::util::Time::ParseTime(
 std::tm weatherer::util::Time::ConvertTimePointToTm(
     const std::chrono::system_clock::time_point& time_point) {
   const std::time_t time = std::chrono::system_clock::to_time_t(time_point);
-  std::tm time_info;
+  std::tm time_info{};
   localtime_s(
       &time_info,
       &time);  // Use localtime_s for safer conversion, especially on Windows

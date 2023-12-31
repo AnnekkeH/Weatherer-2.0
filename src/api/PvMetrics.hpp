@@ -1,16 +1,15 @@
 #pragma once
-#include <cmath>
 
 #include "models/Coordinates.hpp"
 #include "models/PvData.hpp"
 
 namespace weatherer {
 class PvMetrics {
- private:
+private:
   static double CalculateSolarIrradiance(const PvData& pv_data);
   static int CalculateSolarNoonTime(const PvData& pv_data);
 
- public:
+public:
   PvMetrics() = delete;
   ~PvMetrics() = delete;
   static double CalculateDailyEnergyYeild(PvData const& pv_data,

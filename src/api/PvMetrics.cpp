@@ -1,10 +1,11 @@
 #include "PvMetrics.hpp"
+
 #include <cmath>
-#include <iostream>
 #include <numbers>
-#include <util/Statistics.hpp>
 #include <vector>
+
 #include "api/models/Coordinates.hpp"
+#include "util/Statistics.hpp"
 #include "util/Time.hpp"
 
 double weatherer::PvMetrics::CalculateSolarIrradiance(const PvData& pv_data) {
@@ -17,9 +18,7 @@ double weatherer::PvMetrics::CalculateSolarIrradiance(const PvData& pv_data) {
                            return pv_data.GetDirectRadiation().at(hour) +
                                   pv_data.GetDiffuseRadiation().at(hour);
                          });
-
-  const double overallMedian = util::Statistics::Mean(hourly_sum);
-  return overallMedian;
+  return util::Statistics::Mean(hourly_sum);;
 }
 
 int weatherer::PvMetrics::CalculateSolarNoonTime(const PvData& pv_data) {
@@ -49,26 +48,25 @@ double weatherer::PvMetrics::CalculateDailyEnergyYeild(
   };
 
   const double average_temperature = Statistics::Mean(pv_data.GetTemperature());
-  const double average_cloud_cover = static_cast<double>(util::Statistics::Mean(
-                                         pv_data.GetCloudCoverTotal())) /
-                                     100;
+  const double average_cloud_cover =
+      Statistics::Mean(pv_data.GetCloudCoverTotal()) / 100;
 
   const double radians_latitude = convert_to_radians(coordinates.GetLatitude());
   const double solar_irradiance = CalculateSolarIrradiance(pv_data);
 
   const int solar_time = CalculateSolarNoonTime(pv_data);
   const int day_of_year =
-      Time::ConvertTimePointToTm(util::Time::ParseDate(date)).tm_yday;
+      Time::ConvertTimePointToTm(Time::ParseDate(date)).tm_yday;
 
   // Calculate solar declination angle (δ)
   const double sollar_declination =
-      23.45 * sin((365 / 360) * (day_of_year - 81));
+      23.45 * sin((365.0 / 360.0) * (day_of_year - 81));
   const double radians_sollar_declination =
       convert_to_radians(sollar_declination);
 
   // Calculate latitude factor
   const double latitude_factor =
-      cos(radians_latitude) * cos(convert_to_radians(sollar_declination));
+      cos(radians_latitude) * cos(radians_sollar_declination);
 
   // Calculate temperature factor
   const double temperature_factor = 1 - 0.005 * (average_temperature - 25);

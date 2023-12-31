@@ -1,4 +1,3 @@
-#pragma once
 #include "PvData.hpp"
 
 weatherer::PvData::PvData()

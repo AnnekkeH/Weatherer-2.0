@@ -20,7 +20,7 @@ class Time {
   ~Time() = delete;
 
   [[nodiscard]] static DateTimeInfo GetCurrentDate();
-  [[nodiscard]] static DateTimeInfo GetPastDate(std::uint32_t days);
+  [[nodiscard]] static DateTimeInfo GetPastDate(const std::uint32_t days);
   [[nodiscard]] static DateTimeInfo GetFutureDate(const std::string& start_date,
                                                   std::uint32_t days);
   [[nodiscard]] static int DifferenceInDays(const std::string& first,
