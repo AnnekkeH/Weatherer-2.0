@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <numbers>
+#include <span>
 #include <vector>
 
 #include "api/models/Coordinates.hpp"
@@ -18,7 +19,7 @@ double weatherer::PvMetrics::CalculateSolarIrradiance(const PvData& pv_data) {
                            return pv_data.GetDirectRadiation().at(hour) +
                                   pv_data.GetDiffuseRadiation().at(hour);
                          });
-  return util::Statistics::Mean(hourly_sum);;
+  return util::Statistics::Mean(std::span{hourly_sum});
 }
 
 int weatherer::PvMetrics::CalculateSolarNoonTime(const PvData& pv_data) {
@@ -47,9 +48,12 @@ double weatherer::PvMetrics::CalculateDailyEnergyYeild(
     return degrees * (std::numbers::pi / 180);
   };
 
-  const double average_temperature = Statistics::Mean(pv_data.GetTemperature());
+  const double average_temperature = Statistics::Mean(std::span{
+      pv_data.GetTemperature().data(), pv_data.GetTemperature().size()});
   const double average_cloud_cover =
-      Statistics::Mean(pv_data.GetCloudCoverTotal()) / 100;
+      Statistics::Mean(std::span{pv_data.GetCloudCoverTotal().data(),
+                                 pv_data.GetCloudCoverTotal().size()}) /
+      100;
 
   const double radians_latitude = convert_to_radians(coordinates.GetLatitude());
   const double solar_irradiance = CalculateSolarIrradiance(pv_data);
@@ -87,4 +91,4 @@ double weatherer::PvMetrics::CalculateDailyEnergyYeild(
       incident_angle_factor * (1 - average_cloud_cover);
 
   return adjusted_irradiance * panel_eff * panel_area;
-}
+};
