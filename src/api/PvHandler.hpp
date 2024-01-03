@@ -15,8 +15,8 @@ class PvHandler {
   [[nodiscard]] inline static bool VaildateSolarPanelArea(const double panel_area);
 
  public:
-  [[nodiscard]] PvHandler(weatherer::Coordinates const& coords,
-                          weatherer::util::TimeFrame const& time_frame);
+  [[nodiscard]] explicit PvHandler(Coordinates const& coords,
+                          util::TimeFrame const& time_frame);
   ~PvHandler();
   PvHandler(const PvHandler& other);
   PvHandler(PvHandler&& other) noexcept;

@@ -16,7 +16,7 @@ struct PvData {
   std::array<double, 24> wind_speed_;
 
  public:
-  [[nodiscard]] PvData();
+  [[nodiscard]] explicit PvData();
   ~PvData();
   PvData(const PvData& other);
   PvData(PvData&& other) noexcept;

@@ -7,7 +7,7 @@ struct Coordinates {
   double longitude_;
 
  public:
-  [[nodiscard]] Coordinates(const double latitude, const double longitude);
+  [[nodiscard]] explicit Coordinates(const double latitude, const double longitude);
   ~Coordinates();
   Coordinates(const Coordinates& other);
   Coordinates(Coordinates&& other) noexcept;
