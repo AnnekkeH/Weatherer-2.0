@@ -30,7 +30,7 @@ cpr::Response weatherer::PvDataProcessor::FetchHttpData(
   prams.Add(cpr::Parameter{"end_date", time_frame.end_date_});
   prams.Add(cpr::Parameter{"temperature_unit", "celcius"});
 
-  cpr::Response res = cpr::Get(cpr::Url{api_url_}, prams);
+  cpr::Response res = cpr::Get(cpr::Url{kApiUrl_}, prams);
   if (res.status_code != 200) {
     throw std::runtime_error(
         "An error has occurred whilst fetching HTTP data. Status code: " +
@@ -59,7 +59,7 @@ cpr::Response weatherer::PvDataProcessor::FetchHistoricalHttpData(
   prams.Add(cpr::Parameter{"start_date", time_frame.start_date_});
   prams.Add(cpr::Parameter{"end_date", time_frame.end_date_});
 
-  cpr::Response res = cpr::Get(cpr::Url{historical_api_url_}, prams);
+  cpr::Response res = cpr::Get(cpr::Url{kHistoricalApiUrl_}, prams);
   if (res.status_code != 200) {
     throw std::runtime_error(
         "An error has occurred whilst fetching HTTP data. Status code: " +

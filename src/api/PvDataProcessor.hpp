@@ -15,9 +15,9 @@ using PvDataPtr = std::shared_ptr<PvData>;
 using PvCollectionPtr = std::shared_ptr<std::map<std::string, PvDataPtr>>;
 
 class PvDataProcessor {
-  static constexpr std::string_view api_url_{
+  static constexpr std::string_view kApiUrl_{
       "https://api.open-meteo.com/v1/forecast"};
-  static constexpr std::string_view historical_api_url_{
+  static constexpr std::string_view kHistoricalApiUrl_{
       "https://archive-api.open-meteo.com/v1/archive"};
 
   [[nodiscard]] static cpr::Response FetchHttpData(const Coordinates& coords,
@@ -36,6 +36,9 @@ class PvDataProcessor {
                                 const util::TimeFrame& time_frame);
 
  public:
+  PvDataProcessor() = delete;
+  ~PvDataProcessor() = delete;
+
   [[nodiscard]] static PvDataPtr RetrieveDayData(const Coordinates& coords,
                                          const std::string& date);
 
