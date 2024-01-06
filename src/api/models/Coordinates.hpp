@@ -1,7 +1,14 @@
 #pragma once
 
 namespace weatherer {
-struct Coordinates {
+/**
+ * @brief Represents geographical coordinates (latitude and longitude).
+ *
+ * The Coordinates class encapsulates latitude and longitude values, providing
+ * a convenient representation for geographical locations. It includes methods
+ * to access the latitude and longitude values.
+ */
+class Coordinates {
  private:
   double latitude_;
   double longitude_;

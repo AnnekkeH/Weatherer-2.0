@@ -5,7 +5,16 @@
 #include <string>
 
 namespace weatherer {
-struct PvData {
+/**
+ * @brief Represents photovoltaic (PV) system data for a specific time frame.
+ *
+ * The PvData class encapsulates information related to weather conditions over a
+ * 24-hour time frame, including sunrise and sunset times, diffuse and direct
+ * radiation, temperature, cloud cover, and wind speed. It provides methods for
+ * accessing and setting these data attributes and has a friend operator<< function
+ * for convenient ostream output.
+ */
+class PvData {
  private:
   std::string sunrise_time_;
   std::string sunset_time_;
@@ -49,6 +58,19 @@ struct PvData {
 
   void SetWindSpeed(const std::array<double, 24>& wind_speed);
 
+  /**
+   * @brief Overloaded stream insertion operator to facilitate object output.
+   * @param os The output stream.
+   * @param obj The PvData object to be output.
+   * @return The modified output stream.
+   *
+   * This operator allows PvData objects to be easily printed to an output stream.
+   * It displays attributes such as sunrise and sunset times, radiation values,
+   * temperature, cloud cover, and wind speed in a formatted manner. The data arrays
+   * (diffuse_radiation_, direct_radiation_, temperature_, cloud_cover_total_, wind_speed_)
+   * are printed using a helper lambda function (print_arr) to output each element
+   * separated by spaces.
+   */
   friend std::ostream& operator<<(std::ostream& os, const PvData& obj);
 };
 

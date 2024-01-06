@@ -6,6 +6,11 @@
 
 #include "PvMetrics.hpp"
 
+
+/**
+ * @param coords The geographical coordinates.
+ * @param time_frame The time frame for data aggregation.
+*/
 weatherer::PvHandler::PvHandler(Coordinates const& coords,
                                 util::TimeFrame const& time_frame)
     : coords_{coords},
@@ -88,17 +93,19 @@ void weatherer::PvHandler::OutputData(std::ostream& os) const {
 
 void weatherer::PvHandler::OutputDailyEnergyYeild(
     std::ostream& os, const double panel_eff, const double panel_area) const {
+  // Check if the solar panel efficiency and area are within the valid domain.
   if (!VaildateSolarPanelEfficiency(panel_eff)) {
     throw std::invalid_argument(
         "Solar panel efficiency must be a value between 0 and 1 (inclusive)");
   }
-
   if (!VaildateSolarPanelArea(panel_area)) {
     throw std::invalid_argument(
         "Solar panel area must be a value greater than 0");
   }
 
   // os << std::setprecision(3);
+
+  // Loop over the PvData instances in the PvCollection, calculating and sending it to the output stream.
   for (const auto& [key, value] : *pv_collection_) {
     os << key << "\n"
        << PvMetrics::CalculateDailyEnergyYeild(*value, coords_, key, panel_eff,
