@@ -2,6 +2,66 @@
 
 #include <array>
 #include <cmath>
+#include <utility>
+
+weatherer::util::DateTimeInfo::DateTimeInfo(std::string time,
+                                            const std::time_t val)
+    : time_(std::move(time)), val_(val) {}
+
+weatherer::util::DateTimeInfo::DateTimeInfo(const DateTimeInfo& other) =
+    default;
+
+weatherer::util::DateTimeInfo::DateTimeInfo(DateTimeInfo&& other) noexcept
+    : time_(std::move(other.time_), val_(other.val_)) {}
+
+weatherer::util::DateTimeInfo& weatherer::util::DateTimeInfo::operator=(
+    const DateTimeInfo& other) {
+  if (this == &other)
+    return *this;
+  time_ = other.time_;
+  val_ = other.val_;
+  return *this;
+}
+
+weatherer::util::DateTimeInfo& weatherer::util::DateTimeInfo::operator=(
+    DateTimeInfo&& other) noexcept {
+  if (this == &other)
+    return *this;
+  time_ = std::move(other.time_);
+  val_ = other.val_;
+  return *this;
+}
+
+weatherer::util::TimeFrame::TimeFrame(std::string start_date,
+                                      std::string end_date)
+    : start_date_(std::move(start_date)), end_date_(std::move(end_date)) {}
+
+weatherer::util::TimeFrame::TimeFrame(std::string const& date)
+    : start_date_(date), end_date_(date) {}
+
+weatherer::util::TimeFrame::TimeFrame(const TimeFrame& other) = default;
+
+weatherer::util::TimeFrame::TimeFrame(TimeFrame&& other) noexcept
+    : start_date_(std::move(other.start_date_)),
+      end_date_(std::move(end_date_)) {}
+
+weatherer::util::TimeFrame& weatherer::util::TimeFrame::operator=(
+    const TimeFrame& other) {
+  if (this == &other)
+    return *this;
+  start_date_ = other.start_date_;
+  end_date_ = other.end_date_;
+  return *this;
+}
+
+weatherer::util::TimeFrame& weatherer::util::TimeFrame::operator=(
+    TimeFrame&& other) noexcept {
+  if (this == &other)
+    return *this;
+  start_date_ = std::move(other.start_date_);
+  end_date_ = std::move(other.end_date_);
+  return *this;
+}
 
 [[nodiscard]] weatherer::util::DateTimeInfo
 weatherer::util::Time::GetCurrentDate() {
@@ -79,7 +139,7 @@ weatherer::util::Time::ParseDate(const std::string& date) {
   return std::chrono::system_clock::from_time_t(std::mktime(&tm));
 }
 
-[[nodiscard]] int weatherer::util::Time::DifferenceInDays(
+[[nodiscard]] int weatherer::util::Time::CalculateTimeSpan(
     const std::string& first, const std::string& second) {
   const std::chrono::system_clock::time_point start_date = ParseDate(first);
   const std::chrono::system_clock::time_point end_date = ParseDate(second);
