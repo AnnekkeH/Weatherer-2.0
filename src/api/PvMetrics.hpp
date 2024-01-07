@@ -4,6 +4,16 @@
 #include "models/PvData.hpp"
 
 namespace weatherer {
+
+/**
+ * @brief PvMetrics class encapsulates functionality for calculating photovoltaic metrics.
+ *
+ * The PvMetrics class is responsible for calculating photovoltaic metrics based on
+ * weather data, location coordinates, and solar panel parameters. It includes methods
+ * for calculating the solar irradiance, solar noon time, and daily energy yield.
+ *
+ * Note: This class should not typically be used directly, but rather through the PvHandler class.
+ */
 class PvMetrics {
 private:
 /**
