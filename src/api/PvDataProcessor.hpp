@@ -21,7 +21,7 @@ using PvCollectionPtr = std::shared_ptr<std::map<std::string, PvDataPtr>>;
  * The PvDataProcessor class provides methods to fetch current and historical weather data, retrieve
  * weather data for specific days, and generate bulk weather data for a given time frame.
  *
- * Note: This class should not typially be used directly, but rather through the PvHandler class.
+ * Note: This class should not typically be used directly, but rather through the PvHandler class.
  */
 class PvDataProcessor {
   static constexpr std::string_view kApiUrl_{
