@@ -21,7 +21,7 @@ private:
  * @param pv_data The photovoltaic data containing radiation information.
  * @return The calculated solar irradiance.
  *
- * This method computes the solar irradiance by summing the direct and diffuse radiation
+ * Computes the solar irradiance by summing the direct and diffuse radiation
  * for each hour and then calculating the mean of the hourly sum. The result represents
  * the solar irradiance, which is a crucial factor in determining the energy yield of
  * photovoltaic systems.
@@ -33,7 +33,7 @@ private:
    * @param pv_data The photovoltaic data containing sunrise and sunset times.
    * @return The calculated solar noon hour.
    *
-   * This method determines the solar noon time by finding the midpoint between the
+   * Determines the solar noon time by finding the midpoint between the
    * sunrise and sunset times. It calculates the duration between them, computes the
    * midpoint duration, and adds it to the sunrise time. The result represents the hour
    * of the day when solar noon occurs.
@@ -54,7 +54,7 @@ public:
  * @param panel_area The area of the solar panel (in square meters).
  * @return The calculated daily energy yield in kilowatt-hours.
  *
- * This method computes the daily energy yield of a photovoltaic system based on
+ * Computes the daily energy yield of a photovoltaic system based on
  * weather data, location coordinates, and solar panel parameters. It considers
  * factors such as temperature, cloud cover, solar irradiance, and incident angle
  * to adjust the irradiance. The final energy yield is obtained by multiplying the

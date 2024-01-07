@@ -50,7 +50,7 @@ class PvHandler {
  * @brief Appends aggregated weather data to the specified output stream.
  * @param os The output stream to append data to.
  *
- * This method appends the aggregated weather data for each day to the provided
+ * Appends the aggregated weather data for each day to the provided
  * output stream. It iterates over the stored PvData instances in the PvCollection,
  * adding the date and detailed weather information for each day to the output stream.
  */
@@ -65,7 +65,7 @@ class PvHandler {
  * @param panel_area The area of the solar panel.
  * @throws std::invalid_argument if the solar panel efficiency or area is outside the valid domain.
  *
- * This method calculates and appends the daily energy yield information for each
+ * Calculates and appends the daily energy yield information for each
  * day, considering the specified solar panel efficiency and area. It validates the
  * input parameters before processing and appends the date along with the calculated
  * daily energy yield in kilowatt-hours to the output stream.

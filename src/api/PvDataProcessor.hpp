@@ -36,7 +36,7 @@ class PvDataProcessor {
  * @return cpr::Response containing the HTTP response.
  * @throws std::runtime_error if an error occurs during the HTTP request or if the response status code is not 200.
  *
- * This method constructs a request to the Open-Meteo API to retrieve current weather
+ * Constructs a request to the Open-Meteo API to retrieve current weather
  * data for a specified geographical location (latitude and longitude) within a given
  * time frame. The fetched data includes details such as sunrise and sunset times,
  * temperature, cloud cover, wind speed, direct and diffuse radiation.
@@ -50,7 +50,7 @@ class PvDataProcessor {
  * @param time_frame The time frame for which data is requested.
  * @return cpr::Response containing the HTTP response.
  *
- * This method is similar to FetchHttpData but specifically designed to retrieve
+ * Is similar to FetchHttpData but specifically designed to retrieve
  * historical weather data, which is data older than five (5) days. It constructs
  * a request to the Open-Meteo API for the specified location and time frame,
  * fetching data including sunrise, sunset times, temperature, cloud cover,
@@ -66,7 +66,7 @@ class PvDataProcessor {
  * @return PvCollectionPtr containing bulk weather data.
  * @throws std::out_of_range if the expected JSON structure is not present.
  *
- * This method processes the JSON response containing hourly weather data for a
+ * Processes the JSON response containing hourly weather data for a
  * specified time frame. It chunks the data into daily segments and creates a
  * PvCollectionPtr containing a map of dates and corresponding PvDataPtr with
  * details such as sunrise and sunset times, diffuse and direct radiation, temperature,
@@ -88,7 +88,7 @@ class PvDataProcessor {
  * @throws std::out_of_range if the expected JSON structure is not present.
  *
  *
- * This method takes the coordinates and a specific date, then fetches the
+ * Takes the coordinates and a specific date, then fetches the
  * corresponding weather data from the previously retrieved JSON response. It
  * parses the JSON data and creates a PvDataPtr containing sunrise and sunset times,
  * diffuse and direct radiation, temperature, cloud cover, and wind speed for that day.
@@ -102,7 +102,7 @@ class PvDataProcessor {
  * @param time_frame The time frame for which data is requested.
  * @return PvCollectionPtr containing aggregated weather data.
  *
- * This method aggregates weather data based on different scenarios. If the time frame
+ * Aggregates weather data based on different scenarios. If the time frame
  * covers a period starting and ending in the past, it fetches historical data and
  * generates bulk data. If the time frame starts in the past and ends in the future,
  * it combines historical and current data. If the time frame starts and ends in the

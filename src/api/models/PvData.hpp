@@ -64,7 +64,7 @@ class PvData {
    * @param obj The PvData object to be output.
    * @return The modified output stream.
    *
-   * This operator allows PvData objects to be easily printed to an output stream.
+   * Allows PvData objects to be easily printed to an output stream.
    * It displays attributes such as sunrise and sunset times, radiation values,
    * temperature, cloud cover, and wind speed in a formatted manner. The data arrays
    * (diffuse_radiation_, direct_radiation_, temperature_, cloud_cover_total_, wind_speed_)
