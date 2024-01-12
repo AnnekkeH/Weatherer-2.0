@@ -24,8 +24,7 @@ cpr::Response weatherer::PvDataProcessor::FetchHttpData(
   prams.Add(cpr::Parameter{"hourly", "diffuse_radiation"});
   prams.Add(cpr::Parameter{"start_date", time_frame.start_date_});
   prams.Add(cpr::Parameter{"end_date", time_frame.end_date_});
-  prams.Add(cpr::Parameter{"temperature_unit", "celcius"});
-
+  prams.Add(cpr::Parameter{"temperature_unit", "celsius"});
   // Perform the HTTP GET request to the regular Open-Metro API.
   cpr::Response res = cpr::Get(cpr::Url{kApiUrl_}, prams);
 
@@ -53,6 +52,7 @@ cpr::Response weatherer::PvDataProcessor::FetchHistoricalHttpData(
   prams.Add(cpr::Parameter{"hourly", "diffuse_radiation"});
   prams.Add(cpr::Parameter{"start_date", time_frame.start_date_});
   prams.Add(cpr::Parameter{"end_date", time_frame.end_date_});
+  prams.Add(cpr::Parameter{"temperature_unit", "celsius"});
 
   // Perform the HTTP GET request to the historical Open-Metro API.
   cpr::Response res = cpr::Get(cpr::Url{kHistoricalApiUrl_}, prams);
