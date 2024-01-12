@@ -13,8 +13,8 @@ cpr::Response weatherer::PvDataProcessor::FetchHttpData(
     const Coordinates& coords, util::TimeFrame const& time_frame) {
   cpr::Parameters prams{};
   // Set the parameters for the HTTP request.
-  prams.Add(cpr::Parameter{"longitude", std::to_string(coords.GetLatitude())});
-  prams.Add(cpr::Parameter{"latitude", std::to_string(coords.GetLongitude())});
+  prams.Add(cpr::Parameter{"longitude", std::to_string(coords.GetLongitude())});
+  prams.Add(cpr::Parameter{"latitude", std::to_string(coords.GetLatitude())});
   prams.Add(cpr::Parameter{"daily", "sunrise"});
   prams.Add(cpr::Parameter{"daily", "sunset"});
   prams.Add(cpr::Parameter{"hourly", "temperature_2m"});
@@ -42,8 +42,8 @@ cpr::Response weatherer::PvDataProcessor::FetchHistoricalHttpData(
     const Coordinates& coords, const util::TimeFrame& time_frame) {
   cpr::Parameters prams{};
   // Set the parameters for the HTTP request.
-  prams.Add(cpr::Parameter{"longitude", std::to_string(coords.GetLatitude())});
-  prams.Add(cpr::Parameter{"latitude", std::to_string(coords.GetLongitude())});
+  prams.Add(cpr::Parameter{"longitude", std::to_string(coords.GetLongitude())});
+  prams.Add(cpr::Parameter{"latitude", std::to_string(coords.GetLatitude())});
   prams.Add(cpr::Parameter{"daily", "sunrise"});
   prams.Add(cpr::Parameter{"daily", "sunset"});
   prams.Add(cpr::Parameter{"hourly", "temperature_2m"});
