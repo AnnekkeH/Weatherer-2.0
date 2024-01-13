@@ -9,18 +9,14 @@
 
 int main() {
   double latitute{}, longitude{}, panel_eff{}, panel_area{};
-  std::print("Enter latitude (Up two decmial places): EX: 52.52\n");
+  std::println("Enter latitude (Example: 34.0549)");
   std::cin >> latitute;
-  std::print("Enter longitude (Up two decmial places): EX: 13.41\n");
+  std::println("Enter longitude (Example: -118.2426)");
   std::cin >> longitude;
-  std::print(
-      "Enter panel efficiency (Value must be a value between 0 and 1 "
-      "(inclusive)): EX: 0.95\n");
+  std::println("Enter panel efficiency [0, 1] (Example: 0.20)");
   std::cin >> panel_eff;
-  std::print("Enter panel area (Value must be a value greater than 0): EX: 10\n");
+  std::println("Enter panel area in m^2 (Example 157.94)");
   std::cin >> panel_area;
-
-
 
   const auto pv_handle = std::make_unique<weatherer::PvHandler>(
       weatherer::Coordinates{latitute, longitude},
