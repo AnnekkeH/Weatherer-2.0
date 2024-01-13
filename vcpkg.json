@@ -1,0 +1,24 @@
+{
+  "name" : "weatherer",
+  "version-string" : "1.0.0",
+  "builtin-baseline" : "0e47c1985273129e4d0ee52ff73bed9125555de8",
+  "dependencies" : [ {
+    "name" : "cpr",
+    "version>=" : "1.10.5#1"
+  }, {
+    "name" : "curl",
+    "version>=" : "8.4.0"
+  }, {
+    "name" : "nlohmann-json",
+    "version>=" : "3.11.3"
+  }, {
+    "name" : "vcpkg-cmake-config",
+    "version>=" : "2022-02-06#1"
+  }, {
+    "name" : "vcpkg-cmake",
+    "version>=" : "2023-05-04"
+  }, {
+    "name" : "zlib",
+    "version>=" : "1.3"
+  } ]
+}
