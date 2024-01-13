@@ -18,12 +18,12 @@ double weatherer::PvMetrics::CalculateSolarIrradiance(const PvData& pv_data) {
   // Calculate the sum of direct and diffuse radiation for each hour.
   std::ranges::transform(hourly_sum.begin(), hourly_sum.end(),
                          hourly_sum.begin(), [pv_data](const int hour) {
-                           return pv_data.GetDirectRadiation().at(hour) +
-                                  pv_data.GetDiffuseRadiation().at(hour);
+                           return (pv_data.GetDirectRadiation().at(hour) +
+                                   pv_data.GetDiffuseRadiation().at(hour));
                          });
 
   // Calculate the mean of the hourly sum, representing the solar irradiance.
-  return util::Statistics::Mean(std::span{hourly_sum});
+  return util::Statistics::Median(std::span{hourly_sum});
 }
 
 int weatherer::PvMetrics::CalculateSolarNoonTime(const PvData& pv_data) {
@@ -67,8 +67,7 @@ double weatherer::PvMetrics::CalculateDailyEnergyYeild(
   // Calculate the average cloud cover from hourly data
   const double average_cloud_cover =
       Statistics::Mean(std::span{pv_data.GetCloudCoverTotal().data(),
-                                 pv_data.GetCloudCoverTotal().size()}) /
-      100;
+                                 pv_data.GetCloudCoverTotal().size()});
 
   // Convert latitude to radians
   const double radians_latitude = convert_to_radians(coordinates.GetLatitude());
@@ -81,14 +80,14 @@ double weatherer::PvMetrics::CalculateDailyEnergyYeild(
       Time::ConvertTimePointToTm(Time::ParseDate(date)).tm_yday;
 
   // Calculate solar declination angle (δ)
-  const double sollar_declination =
+  const double solar_declination =
       23.45 * sin((365.0 / 360.0) * (day_of_year - 81));
-  const double radians_sollar_declination =
-      convert_to_radians(sollar_declination);
+  const double radians_solar_declination =
+      convert_to_radians(solar_declination);
 
   // Calculate latitude factor
   const double latitude_factor =
-      cos(radians_latitude) * cos(radians_sollar_declination);
+      cos(radians_latitude) * cos(radians_solar_declination);
 
   // Calculate temperature factor
   const double temperature_factor = 1 - 0.005 * (average_temperature - 25);
@@ -98,8 +97,8 @@ double weatherer::PvMetrics::CalculateDailyEnergyYeild(
 
   // Calculate incident angle factor
   const double solar_zentith_angle =
-      asin(sin(radians_latitude) * sin(radians_sollar_declination) +
-           cos(radians_latitude) * cos(radians_sollar_declination) *
+      asin(sin(radians_latitude) * sin(radians_solar_declination) +
+           cos(radians_latitude) * cos(radians_solar_declination) *
                cos(convert_to_radians(hour_angle)));
   const double incident_angle_factor = cos(solar_zentith_angle);
 

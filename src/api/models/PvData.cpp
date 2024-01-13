@@ -1,5 +1,7 @@
 #include "PvData.hpp"
 
+#include <algorithm>
+
 weatherer::PvData::PvData()
     : sunrise_time_({}),
       sunset_time_({}),
@@ -66,22 +68,34 @@ void weatherer::PvData::SetSunsetTime(const std::string& sunset_time) {
   sunset_time_ = sunset_time;
 }
 
-std::array<int, 24> weatherer::PvData::GetDiffuseRadiation() const {
+std::array<double, 24> weatherer::PvData::GetDiffuseRadiation() const {
   return diffuse_radiation_;
 }
 
 void weatherer::PvData::SetDiffuseRadiation(
     const std::array<int, 24>& diffuse_radiation) {
-  diffuse_radiation_ = diffuse_radiation;
+  diffuse_radiation_ = std::array<double, 24>{};
+  // Divide by 1000 to convert from W/m^2 to kWh/m^2.
+  std::ranges::transform(diffuse_radiation.begin(), diffuse_radiation.end(),
+                         diffuse_radiation_.begin(),
+                         [](const int rad) {
+                           return rad / 1000.0;
+                         });
 }
 
-std::array<int, 24> weatherer::PvData::GetDirectRadiation() const {
+std::array<double, 24> weatherer::PvData::GetDirectRadiation() const {
   return direct_radiation_;
 }
 
 void weatherer::PvData::SetDirectRadiation(
     const std::array<int, 24>& direct_radiation) {
-  direct_radiation_ = direct_radiation;
+  direct_radiation_ = std::array<double, 24>{};
+  // Divide by 1000 to convert from W/m^2 to kWh/m^2.
+  std::ranges::transform(direct_radiation.begin(), direct_radiation.end(),
+                         direct_radiation_.begin(),
+                         [](const int rad) {
+                           return rad / 1000.0;
+                         });
 }
 
 std::array<double, 24> weatherer::PvData::GetTemperature() const {
@@ -93,13 +107,19 @@ void weatherer::PvData::SetTemperature(
   temperature_ = temperature;
 }
 
-std::array<int, 24> weatherer::PvData::GetCloudCoverTotal() const {
+std::array<double, 24> weatherer::PvData::GetCloudCoverTotal() const {
   return cloud_cover_total_;
 }
 
 void weatherer::PvData::SetCloudCoverTotal(
     const std::array<int, 24>& cloud_cover_total) {
-  cloud_cover_total_ = cloud_cover_total;
+  cloud_cover_total_ = std::array<double, 24>{};
+  // Divide by 100 to convert from percentage to decimal.
+  std::ranges::transform(cloud_cover_total.begin(), cloud_cover_total.end(),
+                         cloud_cover_total_.begin(),
+                         [](const int cover) {
+                           return cover / 100.0;
+                         });
 }
 
 std::array<double, 24> weatherer::PvData::GetWindSpeed() const {

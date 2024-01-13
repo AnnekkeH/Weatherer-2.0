@@ -16,12 +16,19 @@ namespace weatherer {
  */
 class PvData {
  private:
+  // Military time format (e.g. 00:00, 01:00, 02:00, ..., 23:00)
   std::string sunrise_time_;
+  // Military time format (e.g. 00:00, 01:00, 02:00, ..., 23:00)
   std::string sunset_time_;
-  std::array<int, 24> diffuse_radiation_;
-  std::array<int, 24> direct_radiation_;
+  // Units: kWh/m^2
+  std::array<double, 24> diffuse_radiation_;
+  // Units: kWh/m^2
+  std::array<double, 24> direct_radiation_;
+  // Units: degrees Celsius
   std::array<double, 24> temperature_;
-  std::array<int, 24> cloud_cover_total_;
+  // Value between 0 and 1
+  std::array<double, 24> cloud_cover_total_;
+  // Units: km/h
   std::array<double, 24> wind_speed_;
 
  public:
@@ -40,17 +47,19 @@ class PvData {
 
   void SetSunsetTime(const std::string& sunset_time);
 
-  [[nodiscard]] std::array<int, 24> GetDiffuseRadiation() const;
+  [[nodiscard]] std::array<double, 24> GetDiffuseRadiation() const;
+
   void SetDiffuseRadiation(const std::array<int, 24>& diffuse_radiation);
 
-  [[nodiscard]] std::array<int, 24> GetDirectRadiation() const;
+  [[nodiscard]] std::array<double, 24> GetDirectRadiation() const;
 
   void SetDirectRadiation(const std::array<int, 24>& direct_radiation);
+
   [[nodiscard]] std::array<double, 24> GetTemperature() const;
 
   void SetTemperature(const std::array<double, 24>& temperature);
 
-  [[nodiscard]] std::array<int, 24> GetCloudCoverTotal() const;
+  [[nodiscard]] std::array<double, 24> GetCloudCoverTotal() const;
 
   void SetCloudCoverTotal(const std::array<int, 24>& cloud_cover_total);
 
