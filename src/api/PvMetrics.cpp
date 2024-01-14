@@ -93,7 +93,8 @@ double weatherer::PvMetrics::CalculateDailyEnergyYeild(
   const double hour_angle = 15 * (solar_time - 12);
   const double solar_zenith_angle = std::asin(
       std::sin(radians_latitude) * std::sin(radian_solar_declination_angle) +
-      std::cos(convert_to_radians(hour_angle)));
+      std::cos(radians_latitude) * std::cos(radian_solar_declination_angle) *
+          std::cos(convert_to_radians(hour_angle)));
   const double incident_angle_factor =
       std::cos(convert_to_radians(solar_zenith_angle));
 
