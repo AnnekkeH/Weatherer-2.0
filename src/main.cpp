@@ -4,8 +4,7 @@
 
 #include "api/PvHandler.hpp"
 #include "api/models/Coordinates.hpp"
-#include "util/Time.hpp"
-
+#include "util/Date.hpp"
 
 int main() {
   double latitute{}, longitude{}, panel_eff{}, panel_area{};

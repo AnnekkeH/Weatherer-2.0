@@ -3,8 +3,9 @@
 #include <algorithm>
 
 weatherer::PvData::PvData()
-    : sunrise_time_({}),
-      sunset_time_({}),
+    : date_({}),
+      sunrise_time_(0),
+      sunset_time_(0),
       diffuse_radiation_({}),
       direct_radiation_({}),
       temperature_({}),
@@ -16,18 +17,32 @@ weatherer::PvData::~PvData() = default;
 weatherer::PvData::PvData(const PvData& other) = default;
 
 weatherer::PvData::PvData(PvData&& other) noexcept
-    : sunrise_time_(std::move(other.sunrise_time_)),
-      sunset_time_(std::move(other.sunset_time_)),
-      diffuse_radiation_(other.diffuse_radiation_),
-      direct_radiation_(other.direct_radiation_),
-      temperature_(other.temperature_),
-      cloud_cover_total_(other.cloud_cover_total_),
-      wind_speed_(other.wind_speed_) {}
+      : date_(std::move(other.date_)),
+        sunrise_time_(other.sunrise_time_),
+        sunset_time_(other.sunset_time_),
+        diffuse_radiation_(other.diffuse_radiation_),
+        direct_radiation_(other.direct_radiation_),
+        temperature_(other.temperature_),
+        cloud_cover_total_(other.cloud_cover_total_),
+        wind_speed_(other.wind_speed_) {}
 
 weatherer::PvData& weatherer::PvData::operator=(const PvData& other) {
-  if (this == &other) {
+  if (this == &other)
     return *this;
-  }
+  date_ = other.date_;
+  sunrise_time_ = other.sunrise_time_;
+  sunset_time_ = other.sunset_time_;
+  diffuse_radiation_ = other.diffuse_radiation_;
+  direct_radiation_ = other.direct_radiation_;
+  temperature_ = other.temperature_;
+  cloud_cover_total_ = other.cloud_cover_total_;
+  wind_speed_ = other.wind_speed_;
+  return *this;
+}
+weatherer::PvData& weatherer::PvData::operator=(PvData&& other) noexcept {
+  if (this == &other)
+    return *this;
+  date_ = std::move(other.date_);
   sunrise_time_ = other.sunrise_time_;
   sunset_time_ = other.sunset_time_;
   diffuse_radiation_ = other.diffuse_radiation_;
@@ -38,33 +53,27 @@ weatherer::PvData& weatherer::PvData::operator=(const PvData& other) {
   return *this;
 }
 
-weatherer::PvData& weatherer::PvData::operator=(PvData&& other) noexcept {
-  if (this == &other) {
-    return *this;
-  }
-  sunrise_time_ = std::move(other.sunrise_time_);
-  sunset_time_ = std::move(other.sunset_time_);
-  diffuse_radiation_ = other.diffuse_radiation_;
-  direct_radiation_ = other.direct_radiation_;
-  temperature_ = other.temperature_;
-  cloud_cover_total_ = other.cloud_cover_total_;
-  wind_speed_ = other.wind_speed_;
-  return *this;
+std::string weatherer::PvData::GetDate() const {
+  return date_;
 }
 
-std::string weatherer::PvData::GetSunriseTime() const {
+void weatherer::PvData::SetDate(const std::string& date) {
+  date_ = date;
+}
+
+std::time_t weatherer::PvData::GetSunriseTime() const {
   return sunrise_time_;
 }
 
-void weatherer::PvData::SetSunriseTime(const std::string& sunrise_time) {
+void weatherer::PvData::SetSunriseTime(const std::time_t sunrise_time) {
   sunrise_time_ = sunrise_time;
 }
 
-std::string weatherer::PvData::GetSunsetTime() const {
+std::time_t weatherer::PvData::GetSunsetTime() const {
   return sunset_time_;
 }
 
-void weatherer::PvData::SetSunsetTime(const std::string& sunset_time) {
+void weatherer::PvData::SetSunsetTime(const std::time_t sunset_time) {
   sunset_time_ = sunset_time;
 }
 

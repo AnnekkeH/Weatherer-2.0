@@ -1,5 +1,6 @@
 #include "PvDataProcessor.hpp"
 
+#include <iostream>
 #include <memory>
 #include <ranges>
 
@@ -7,7 +8,7 @@
 #include <nlohmann/json.hpp>
 
 #include "util/ChunkOperator.hpp"
-#include "util/Time.hpp"
+#include "util/Date.hpp"
 
 cpr::Response weatherer::PvDataProcessor::FetchHttpData(
     const Coordinates& coords, util::TimeFrame const& time_frame) {
@@ -22,9 +23,13 @@ cpr::Response weatherer::PvDataProcessor::FetchHttpData(
   prams.Add(cpr::Parameter{"hourly", "wind_speed_10m"});
   prams.Add(cpr::Parameter{"hourly", "direct_radiation"});
   prams.Add(cpr::Parameter{"hourly", "diffuse_radiation"});
-  prams.Add(cpr::Parameter{"start_date", time_frame.start_date_});
-  prams.Add(cpr::Parameter{"end_date", time_frame.end_date_});
+  prams.Add(
+      cpr::Parameter{"start_date", time_frame.GetStartDate().StripTime()});
+  prams.Add(cpr::Parameter{"end_date", time_frame.GetEndDate().StripTime()});
   prams.Add(cpr::Parameter{"temperature_unit", "celsius"});
+  prams.Add(cpr::Parameter{"timeformat", "unixtime"});
+  prams.Add(cpr::Parameter{"timezone", "auto"});
+
   // Perform the HTTP GET request to the regular Open-Metro API.
   cpr::Response res = cpr::Get(cpr::Url{kApiUrl_}, prams);
 
@@ -50,9 +55,12 @@ cpr::Response weatherer::PvDataProcessor::FetchHistoricalHttpData(
   prams.Add(cpr::Parameter{"hourly", "wind_speed_10m"});
   prams.Add(cpr::Parameter{"hourly", "direct_radiation"});
   prams.Add(cpr::Parameter{"hourly", "diffuse_radiation"});
-  prams.Add(cpr::Parameter{"start_date", time_frame.start_date_});
-  prams.Add(cpr::Parameter{"end_date", time_frame.end_date_});
+  prams.Add(
+      cpr::Parameter{"start_date", time_frame.GetStartDate().StripTime()});
+  prams.Add(cpr::Parameter{"end_date", time_frame.GetEndDate().StripTime()});
   prams.Add(cpr::Parameter{"temperature_unit", "celsius"});
+  prams.Add(cpr::Parameter{"timeformat", "unixtime"});
+  prams.Add(cpr::Parameter{"timezone", "auto"});
 
   // Perform the HTTP GET request to the historical Open-Metro API.
   cpr::Response res = cpr::Get(cpr::Url{kHistoricalApiUrl_}, prams);
@@ -78,32 +86,41 @@ cpr::Response weatherer::PvDataProcessor::FetchHistoricalHttpData(
 
   auto pv_data = std::make_shared<PvData>();
 
+  const auto& daily = json.at("daily");
+  const auto& hourly = json.at("hourly");
+
   // Extract and set various weather-related attributes from the parsed JSON.
-  pv_data->SetSunriseTime(json.at("daily").at("sunrise").at(0));
-  pv_data->SetSunsetTime(json.at("daily").at("sunset").at(0));
-  pv_data->SetDiffuseRadiation(json.at("hourly").at("diffuse_radiation"));
-  pv_data->SetDirectRadiation(json.at("hourly").at("direct_radiation"));
-  pv_data->SetTemperature(json.at("hourly").at("temperature_2m"));
-  pv_data->SetCloudCoverTotal(json.at("hourly").at("cloud_cover"));
-  pv_data->SetWindSpeed(json.at("hourly").at("wind_speed_10m"));
+  pv_data->SetDate(
+      util::Date{static_cast<std::time_t>(daily.at("time").at(0))}.StripTime());
+  pv_data->SetSunriseTime(daily.at("sunrise").at(0));
+  pv_data->SetSunsetTime(daily.at("sunset").at(0));
+  pv_data->SetDiffuseRadiation(hourly.at("diffuse_radiation"));
+  pv_data->SetDirectRadiation(hourly.at("direct_radiation"));
+  pv_data->SetTemperature(hourly.at("temperature_2m"));
+  pv_data->SetCloudCoverTotal(hourly.at("cloud_cover"));
+  pv_data->SetWindSpeed(hourly.at("wind_speed_10m"));
   return pv_data;
 }
 
-[[nodiscard]] weatherer::PvCollectionPtr weatherer::PvDataProcessor::GenerateBulkData(
+[[nodiscard]] weatherer::PvCollectionPtr
+weatherer::PvDataProcessor::GenerateBulkData(
     const std::string& response, const util::TimeFrame& time_frame) {
   using namespace util;
   using Json = nlohmann::json;
 
   // Calculate the total number of days in the specified time frame.
-  int total_days =
-      Time::CalculateTimeSpan(time_frame.start_date_, time_frame.end_date_);
+  std::time_t total_days =
+      (time_frame.GetEndDate() - time_frame.GetStartDate()) /
+      Date::kSecondsPerDay;
 
   auto data = std::make_shared<std::map<std::string, PvDataPtr>>();
   // Parse the JSON response.
   Json json = Json::parse(response);
 
   const auto hourly = json.at("hourly");
-  const int split_amount = total_days + 1;
+  const auto daily = json.at("daily");
+
+  const std::size_t split_amount = total_days + 1;
 
   // Create chunked vectors for each weather attribute.
   const auto diffuse_radiations =
@@ -119,13 +136,12 @@ cpr::Response weatherer::PvDataProcessor::FetchHistoricalHttpData(
 
   // Loop through each day in the specified time frame.
   for (const int i : std::ranges::views::iota(0, total_days)) {
-    // Get the date and value for the current day.
-    const auto [date, val] = Time::GetFutureDate(time_frame.start_date_, i + 1);
-
     auto pv_data = std::make_shared<PvData>();
     // Set weather data attributes for the current day using relevant hourly information.
-    pv_data->SetSunriseTime(json.at("daily").at("sunrise").at(i));
-    pv_data->SetSunsetTime(json.at("daily").at("sunset").at(i));
+    pv_data->SetDate(
+        Date{static_cast<std::time_t>(daily.at("time").at(i))}.StripTime());
+    pv_data->SetSunriseTime(daily.at("sunrise").at(i));
+    pv_data->SetSunsetTime(daily.at("sunset").at(i));
     pv_data->SetDiffuseRadiation(diffuse_radiations.at(i));
     pv_data->SetDirectRadiation(direct_radiations.at(i));
     pv_data->SetTemperature(temperatures.at(i));
@@ -133,7 +149,7 @@ cpr::Response weatherer::PvDataProcessor::FetchHistoricalHttpData(
     pv_data->SetWindSpeed(wind_speeds.at(i));
 
     // Add the date and corresponding weather data to the map.
-    data->insert({date, pv_data});
+    data->insert({pv_data->GetDate(), pv_data});
   }
   return data;
 }
@@ -143,33 +159,45 @@ weatherer::PvDataProcessor::AggregateAllData(
     const Coordinates& coords, util::TimeFrame const& time_frame) {
   using namespace util;
 
+  Date today{};
+  today.ResetToMidnight();
+
   // Extract start and end dates from the time frame.
-  const std::string start_date = time_frame.start_date_;
-  const std::string end_date = time_frame.end_date_;
+  Date start_date = Date{time_frame.GetStartDate()};
+  start_date.ResetToMidnight();
+
+  Date end_date = Date{time_frame.GetEndDate()};
+  end_date.ResetToMidnight();
 
   // If the time frame covers a period starting and ending in the past
-  if (Time::CalculateTimeSpan(start_date, end_date) >= 14 &&
-      Time::CalculateTimeSpan(end_date, Time::GetCurrentDate().time_) >= 5) {
+  if ((start_date - end_date) / Date::kSecondsPerDay >= 14 &&
+      (end_date - Date{}) / Date::kSecondsPerDay >= 5) {
     const std::string response =
         FetchHistoricalHttpData(coords, time_frame).text;
     return GenerateBulkData(response, time_frame);
   }
 
   // If the time frame starts in the past and ends in the future
-  if (Time::CalculateTimeSpan(start_date, end_date) >= 14 &&
-      Time::CalculateTimeSpan(end_date, Time::GetCurrentDate().time_) <= 5) {
-    const auto five_days_ago = Time::GetPastDate(5).time_;
+  if ((start_date - end_date) / Date::kSecondsPerDay >= 14 &&
+      (end_date - today) / Date::kSecondsPerDay <= 5) {
+    const auto five_days_ago = today - (5 * Date::kSecondsPerDay);
     const std::string first_reponse =
-        FetchHistoricalHttpData(coords, TimeFrame{start_date, five_days_ago})
+        FetchHistoricalHttpData(
+            coords, TimeFrame{start_date.ToString(), five_days_ago.ToString()})
             .text;
     const std::string second_reponse =
-        FetchHttpData(coords, TimeFrame{five_days_ago, end_date}).text;
+        FetchHttpData(coords,
+                      TimeFrame{five_days_ago.ToString(), end_date.ToString()})
+            .text;
 
     // Generate bulk data for each period.
     const PvCollectionPtr first_data = GenerateBulkData(
-        first_reponse, TimeFrame{start_date, Time::GetPastDate(5).time_});
-    const PvCollectionPtr second_data =
-        GenerateBulkData(second_reponse, TimeFrame{five_days_ago, end_date});
+        first_reponse,
+        TimeFrame{start_date.ToString(),
+                  (today - (5 * Date::kSecondsPerDay)).ToString()});
+    const PvCollectionPtr second_data = GenerateBulkData(
+        second_reponse,
+        TimeFrame{five_days_ago.ToString(), end_date.ToString()});
 
     // Combine data from both periods and return.
     first_data->insert(second_data->begin(), second_data->end());

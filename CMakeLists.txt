@@ -18,8 +18,8 @@ set (SOURCES
         src/api/PvHandler.cpp
         src/api/PvHandler.hpp
         src/util/ChunkOperator.hpp
-        src/util/Time.cpp
-        src/util/Time.hpp
+        src/util/Date.cpp
+        src/util/Date.hpp
         src/util/Statistics.hpp
         src/api/models/Coordinates.cpp
         src/api/models/Coordinates.hpp

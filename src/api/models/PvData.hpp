@@ -4,6 +4,8 @@
 #include <print>
 #include <string>
 
+#include "util/Date.hpp"
+
 namespace weatherer {
 /**
  * @brief Represents photovoltaic (PV) system data for a specific time frame.
@@ -16,10 +18,12 @@ namespace weatherer {
  */
 class PvData {
  private:
+  // Date format (e.g. 2021-01-01)
+  std::string date_;
   // Military time format (e.g. 00:00, 01:00, 02:00, ..., 23:00)
-  std::string sunrise_time_;
+  std::time_t sunrise_time_;
   // Military time format (e.g. 00:00, 01:00, 02:00, ..., 23:00)
-  std::string sunset_time_;
+  std::time_t sunset_time_;
   // Units: kWh/m^2
   std::array<double, 24> diffuse_radiation_;
   // Units: kWh/m^2
@@ -39,13 +43,17 @@ class PvData {
   PvData& operator=(const PvData& other);
   PvData& operator=(PvData&& other) noexcept;
 
-  [[nodiscard]] std::string GetSunriseTime() const;
+  [[nodiscard]] std::string GetDate() const;
 
-  void SetSunriseTime(const std::string& sunrise_time);
+  void SetDate(const std::string& date);
 
-  [[nodiscard]] std::string GetSunsetTime() const;
+  [[nodiscard]] std::time_t GetSunriseTime() const;
 
-  void SetSunsetTime(const std::string& sunset_time);
+  void SetSunriseTime(const std::time_t sunrise_time);
+
+  [[nodiscard]] std::time_t GetSunsetTime() const;
+
+  void SetSunsetTime(const std::time_t sunset_time);
 
   [[nodiscard]] std::array<double, 24> GetDiffuseRadiation() const;
 
@@ -88,8 +96,8 @@ inline std::ostream& operator<<(std::ostream& os, const PvData& obj) {
                              std::array<Ty_, Amt_> const& arr) -> void {
     std::copy(arr.cbegin(), arr.cend(), std::ostream_iterator<double>(os, " "));
   };
-  os << "Sunrise Time: " << obj.sunrise_time_ << "\n"
-     << "Sunset Time: " << obj.sunset_time_ << "\n"
+  os << "Sunrise Time: " << util::Date{obj.sunrise_time_}.ToString() << "\n"
+     << "Sunset Time: " << util::Date{obj.sunset_time_}.ToString() << "\n"
      << "Diffuse Radiation: ";
   print_arr(obj.diffuse_radiation_);
   os << "\n"

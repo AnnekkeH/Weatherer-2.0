@@ -6,8 +6,8 @@
 #include <vector>
 
 #include "api/models/Coordinates.hpp"
+#include "util/Date.hpp"
 #include "util/Statistics.hpp"
-#include "util/Time.hpp"
 
 double weatherer::PvMetrics::CalculateSolarIrradiance(const PvData& pv_data) {
   std::vector<double> hourly_sum(24);
@@ -27,8 +27,8 @@ double weatherer::PvMetrics::CalculateSolarIrradiance(const PvData& pv_data) {
 
 int weatherer::PvMetrics::CalculateSolarNoonTime(const PvData& pv_data) {
   // Parse sunrise and sunset times from the photovoltaic data.
-  const auto sunrise_time = util::Time::ParseTime(pv_data.GetSunriseTime());
-  const auto sunset_time = util::Time::ParseTime(pv_data.GetSunsetTime());
+  const auto sunrise_time = util::Date{pv_data.GetSunriseTime()};
+  const auto sunset_time = util::Date{pv_data.GetSunsetTime()};
 
   // Calculate the total duration between sunrise and sunset.
   const auto duration = sunset_time - sunrise_time;
@@ -39,9 +39,9 @@ int weatherer::PvMetrics::CalculateSolarNoonTime(const PvData& pv_data) {
   // Calculate the solar noon time by adding the midpoint duration to the sunrise time.
   const auto solar_noon = sunrise_time + midpoint_duration;
   // Convert the solar noon time to a time structure to extract the hour.
-  const std::time_t solar_noon_time =
-      std::chrono::system_clock::to_time_t(solar_noon);
+  const std::time_t solar_noon_time = solar_noon.GetTime();
   std::tm solar_noon_tm{};
+
   localtime_s(&solar_noon_tm, &solar_noon_time);
 
   // Return the hour of the day when solar noon occurs. Adding one because the
@@ -73,7 +73,7 @@ double weatherer::PvMetrics::CalculateDailyEnergyYeild(
 
   // Calcuate the laitude factor based on the solar declination angle.
   const int day_of_year =
-      Time::ConvertTimePointToTm(Time::ParseDate(date)).tm_yday;
+      Date{date}.GetCurrentLocalTime().tm_yday;
   const double solar_declination_angle =
       23.45 * std::sin((365.0 / 360.0) * (day_of_year - 81));
   const double radian_solar_declination_angle =
