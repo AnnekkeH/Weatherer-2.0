@@ -1,0 +1,714 @@
+{
+  "Apple": {
+    "Zone": "3;4;5;6;7;8;9",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "6.0-7.0",
+    "Pref. Soil Temp C": 18,
+    "Pref. Air Temp C": 16,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Artichoke": {
+    "Zone": "7;8;9;10",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "6.0-7.0",
+    "Pref. Soil Temp C": 21,
+    "Pref. Air Temp C": "0<",
+    "Species Name": "Cynara cardunculus var. scolymus",
+    "Fun Facts": "If the bulbs of the artichoke are not harvested, they bloom into bright purple flowers that pollinators love! Cynara cardunculus var. scolymus is also called Green Globe Artichoke"
+  },
+  "Arugula": {
+    "Zone": "4;5;6;7;8;9",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "6.0-7.0",
+    "Pref. Soil Temp C": "4<",
+    "Pref. Air Temp C": -2,
+    "Species Name": "Eruca sativa",
+    "Fun Facts": null
+  },
+  "Asparagus": {
+    "Zone": "2;3;4;5;6;7;8;9",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "6.5-7.0",
+    "Pref. Soil Temp C": 23,
+    "Pref. Air Temp C": 24,
+    "Species Name": "Asparagus officinalis",
+    "Fun Facts": null
+  },
+  "Avacado": {
+    "Zone": "9;10;11",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "6.0-7.0",
+    "Pref. Soil Temp C": 23,
+    "Pref. Air Temp C": "10<",
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Basil": {
+    "Zone": "3;4;5;6;7;8;9;10",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "6.0-7.5",
+    "Pref. Soil Temp C": 24,
+    "Pref. Air Temp C": 27,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Bay Laurel": {
+    "Zone": "8;9;10;11",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "6.0-7.5",
+    "Pref. Soil Temp C": 18,
+    "Pref. Air Temp C": 21,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Bee Balm": {
+    "Zone": "4;5;6;7;8;9",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "6.0-7.0",
+    "Pref. Soil Temp C": 21,
+    "Pref. Air Temp C": 20,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Beet": {
+    "Zone": "4;5;6;7;8",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "6.5-7.5",
+    "Pref. Soil Temp C": 26,
+    "Pref. Air Temp C": 17,
+    "Species Name": "Beta vulgaris L",
+    "Fun Facts": null
+  },
+  "Black Beans": {
+    "Zone": "3;4;5;6;7;8;9;10",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "6.0-7.5",
+    "Pref. Soil Temp C": 24,
+    "Pref. Air Temp C": 26,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Blackberries": {
+    "Zone": "5;6;7;8",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "5.5-6.5",
+    "Pref. Soil Temp C": 27,
+    "Pref. Air Temp C": 24,
+    "Species Name": "Rubus fruticosus",
+    "Fun Facts": "Blackberries require a winter that is 45 F or colder in order to have fruit"
+  },
+  "Blueberries": {
+    "Zone": "3;4;5;6;7",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "4.5-5.5",
+    "Pref. Soil Temp C": 18,
+    "Pref. Air Temp C": 16,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Borage": {
+    "Zone": "3;4;5;6;7;8;9",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "6.0-7.5",
+    "Pref. Soil Temp C": 18,
+    "Pref. Air Temp C": 21,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Cantaloupe": {
+    "Zone": "4;5;6;7;8;9;10;11",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "6.0-6.8",
+    "Pref. Soil Temp C": 27,
+    "Pref. Air Temp C": 27,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Caraway": {
+    "Zone": "4;5;6;7;8;9",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "6.0-7.0",
+    "Pref. Soil Temp C": 18,
+    "Pref. Air Temp C": 21,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Catnip": {
+    "Zone": "3;4;5;6;7;8;9",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "6.0-7.0",
+    "Pref. Soil Temp C": 18,
+    "Pref. Air Temp C": 21,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Chamomile": {
+    "Zone": "3;4;5;6;7;8;9",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "5.6-7.5",
+    "Pref. Soil Temp C": 18,
+    "Pref. Air Temp C": 21,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Cherry": {
+    "Zone": "5;6;7;8;9",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "6.0-7.0",
+    "Pref. Soil Temp C": 18,
+    "Pref. Air Temp C": 16,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Chervil": {
+    "Zone": "6;7;8;9",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "6.0-7.0",
+    "Pref. Soil Temp C": 18,
+    "Pref. Air Temp C": 21,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Chickpeas": {
+    "Zone": "3;4;5;6;7;8;9;10",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "6.0-7.5",
+    "Pref. Soil Temp C": 25,
+    "Pref. Air Temp C": 21,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Cilantro": {
+    "Zone": "2;3;4;5;6;7;8;9;10;11",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "6.0-7.0",
+    "Pref. Soil Temp C": 20,
+    "Pref. Air Temp C": 17,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Dill": {
+    "Zone": "2;3;4;5;6;7;8;9;10;11",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "5.5-7.5",
+    "Pref. Soil Temp C": 18,
+    "Pref. Air Temp C": 21,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Edamame": {
+    "Zone": "3;4;5;6;7;8;9;10",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "6.0-7.5",
+    "Pref. Soil Temp C": 21,
+    "Pref. Air Temp C": 21,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Elderberries": {
+    "Zone": "3;4;5;6;7;8;9;10",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "5.5-6.5",
+    "Pref. Soil Temp C": 20,
+    "Pref. Air Temp C": 21,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Fava beans": {
+    "Zone": "3;4;5;6;7;8;9;10",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "6.0-7.5",
+    "Pref. Soil Temp C": 20,
+    "Pref. Air Temp C": 13,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Fennel": {
+    "Zone": "4;5;6;7;8;9",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "6.0-7.0",
+    "Pref. Soil Temp C": 18,
+    "Pref. Air Temp C": 21,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Gourd": {
+    "Zone": "3;4;5;6;7;8;9;10;11",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "6.0-7.5",
+    "Pref. Soil Temp C": null,
+    "Pref. Air Temp C": null,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Grapes": {
+    "Zone": "6;7;8;9;10",
+    "Pref. Light Exposure": "Full/Partial",
+    "Pref. Soil pH": "5.5-6.5",
+    "Pref. Soil Temp C": 18,
+    "Pref. Air Temp C": 29,
+    "Species Name": "Vitis vinifera",
+    "Fun Facts": null
+  },
+  "Green Beans": {
+    "Zone": "3;4;5;6;7;8;9;10",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "6.0-7.5",
+    "Pref. Soil Temp C": 24,
+    "Pref. Air Temp C": 26,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Horseradish": {
+    "Zone": "3;4;5;6;7;8;9",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "6.0-7.0",
+    "Pref. Soil Temp C": null,
+    "Pref. Air Temp C": null,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Kale": {
+    "Zone": "7;8;9;10",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "6.0-7.5",
+    "Pref. Soil Temp C": null,
+    "Pref. Air Temp C": null,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Kidney Beans": {
+    "Zone": "3;4;5;6;7;8;9;10",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "6.0-7.5",
+    "Pref. Soil Temp C": 24,
+    "Pref. Air Temp C": 26,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Kohlrabi": {
+    "Zone": "3;4;5;6;7;8;9;10",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "6.0-7.5",
+    "Pref. Soil Temp C": null,
+    "Pref. Air Temp C": null,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Leek": {
+    "Zone": "3;4;5;6;7;8;9",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "6.0-7.0",
+    "Pref. Soil Temp C": null,
+    "Pref. Air Temp C": null,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Lemon": {
+    "Zone": "9;10;11",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "5.5-6.5",
+    "Pref. Soil Temp C": 18,
+    "Pref. Air Temp C": "10<",
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Lemon Balm": {
+    "Zone": "4;5;6;7;8;9",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "6.0-7.5",
+    "Pref. Soil Temp C": 18,
+    "Pref. Air Temp C": 21,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Lemongrass": {
+    "Zone": "9;10;11",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "6.5-7.5",
+    "Pref. Soil Temp C": 26,
+    "Pref. Air Temp C": 27,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Lentils": {
+    "Zone": "3;4;5;6;7;8;9;10",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "6.0-7.5",
+    "Pref. Soil Temp C": 18,
+    "Pref. Air Temp C": 21.3,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Lime": {
+    "Zone": "9;10;11",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "6.0-7.0",
+    "Pref. Soil Temp C": 25,
+    "Pref. Air Temp C": "10<",
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Mango": {
+    "Zone": "10;11",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "5.5-7.5",
+    "Pref. Soil Temp C": 25,
+    "Pref. Air Temp C": 21,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Marjoram": {
+    "Zone": "5;6;7;8;9",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "6.0-7.5",
+    "Pref. Soil Temp C": 18,
+    "Pref. Air Temp C": 21,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Mint": {
+    "Zone": "3;4;5;6;7;8;9;10;11",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "6.0-7.0",
+    "Pref. Soil Temp C": 20,
+    "Pref. Air Temp C": 20,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Mizuna": {
+    "Zone": "3;4;5;6;7;8;9",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "6.0-7.5",
+    "Pref. Soil Temp C": null,
+    "Pref. Air Temp C": null,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Mustard": {
+    "Zone": "3;4;5;6;7;8;9",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "5.5-7.0",
+    "Pref. Soil Temp C": 17,
+    "Pref. Air Temp C": 17,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Okra": {
+    "Zone": "5;6;7;8;9;10;11",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "6.0-7.6",
+    "Pref. Soil Temp C": null,
+    "Pref. Air Temp C": null,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Onions": {
+    "Zone": "3;4;5;6;7;8;9",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "6.0-7.5",
+    "Pref. Soil Temp C": null,
+    "Pref. Air Temp C": null,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Orange": {
+    "Zone": "9;10;11",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "6.0-7.0",
+    "Pref. Soil Temp C": 18,
+    "Pref. Air Temp C": "10<",
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Oregano": {
+    "Zone": "5;6;7;8;9;10",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "6.0-8.0",
+    "Pref. Soil Temp C": 18,
+    "Pref. Air Temp C": 20,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Parsley": {
+    "Zone": "3;4;5;6;7;8;9",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "5.5-6.7",
+    "Pref. Soil Temp C": 17,
+    "Pref. Air Temp C": 17,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Parsnips": {
+    "Zone": "3;4;5;6;7;8;9",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "6.0-7.0",
+    "Pref. Soil Temp C": null,
+    "Pref. Air Temp C": null,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Peach": {
+    "Zone": "5;6;7;8;9",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "6.0-7.0",
+    "Pref. Soil Temp C": "3<",
+    "Pref. Air Temp C": 27,
+    "Species Name": null,
+    "Fun Facts": "Peaches need roughly 600 hours of the temperature being 45 F or lower in order to bare fruit"
+  },
+  "Peanuts": {
+    "Zone": "8;9;10",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "5.5-7.0",
+    "Pref. Soil Temp C": 24,
+    "Pref. Air Temp C": 26,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Pear": {
+    "Zone": "4;5;6;7;8;9",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "6.0-7.0",
+    "Pref. Soil Temp C": 18,
+    "Pref. Air Temp C": 19,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Peppermint": {
+    "Zone": "3;4;5;6;7;8;9;10;11",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "6.0-7.0",
+    "Pref. Soil Temp C": 20,
+    "Pref. Air Temp C": 20,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Pineapple": {
+    "Zone": "10;11",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "4.5-6.5",
+    "Pref. Soil Temp C": 26,
+    "Pref. Air Temp C": "16<",
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Pinto Beans": {
+    "Zone": "3;4;5;6;7;8;9;10",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "6.0-7.5",
+    "Pref. Soil Temp C": 24,
+    "Pref. Air Temp C": 26,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Potato": {
+    "Zone": "3;4;5;6;7;8;9;10",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "5.0-7.0",
+    "Pref. Soil Temp C": null,
+    "Pref. Air Temp C": null,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Pumpkin": {
+    "Zone": "3;4;5;6;7;8;9",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": null,
+    "Pref. Soil Temp C": null,
+    "Pref. Air Temp C": null,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Radish": {
+    "Zone": "2;3;4;5;6;7;8;9;10;11",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "5.5-6.8",
+    "Pref. Soil Temp C": null,
+    "Pref. Air Temp C": null,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Raspberries": {
+    "Zone": "3;4;5;6;7;8;9",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "5.5-6.5",
+    "Pref. Soil Temp C": 20,
+    "Pref. Air Temp C": 11,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Rhubarb": {
+    "Zone": "3;4;5;6;7;8",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "5.5-6.5",
+    "Pref. Soil Temp C": null,
+    "Pref. Air Temp C": null,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Rosemary": {
+    "Zone": "7;8;9;10",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "6.0-7.0",
+    "Pref. Soil Temp C": 18,
+    "Pref. Air Temp C": 20,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Rutabaga": {
+    "Zone": "3;4;5;6;7;8;9;10",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": null,
+    "Pref. Soil Temp C": null,
+    "Pref. Air Temp C": null,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Sage": {
+    "Zone": "4;5;6;7;8;9;10;11",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "6.0-7.0",
+    "Pref. Soil Temp C": 18,
+    "Pref. Air Temp C": 20,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Snap Peas": {
+    "Zone": "3;4;5;6;7;8;9;10",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "6.0-7.5",
+    "Pref. Soil Temp C": 18,
+    "Pref. Air Temp C": 20,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Snow Peas": {
+    "Zone": "3;4;5;6;7;8;9;10",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "6.0-7.5",
+    "Pref. Soil Temp C": 18,
+    "Pref. Air Temp C": 20,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Soybeans": {
+    "Zone": "3;4;5;6;7;8;9;10",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "6.0-7.5",
+    "Pref. Soil Temp C": 20,
+    "Pref. Air Temp C": 20,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Spinach": {
+    "Zone": "3;4;5;6;7;8;9",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "6.0-7.5",
+    "Pref. Soil Temp C": null,
+    "Pref. Air Temp C": null,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Squash": {
+    "Zone": "3;4;5;6;7;8;9;10",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": null,
+    "Pref. Soil Temp C": null,
+    "Pref. Air Temp C": null,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Stevia": {
+    "Zone": "9;10;11",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "6.5-7.5",
+    "Pref. Soil Temp C": 23,
+    "Pref. Air Temp C": 27,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Strawberries": {
+    "Zone": "3;4;5;6;7;8;9;10",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "5.5-6.5",
+    "Pref. Soil Temp C": 18,
+    "Pref. Air Temp C": 21,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Sweet Potato": {
+    "Zone": "9;10;11",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "5.8-6.2",
+    "Pref. Soil Temp C": null,
+    "Pref. Air Temp C": null,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Swiss Chard": {
+    "Zone": "3;4;5;6;7;8;9;10",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "6.0-7.0",
+    "Pref. Soil Temp C": null,
+    "Pref. Air Temp C": null,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Tarragon": {
+    "Zone": "4;5;6;7;8;9",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "6.0-7.5",
+    "Pref. Soil Temp C": 18,
+    "Pref. Air Temp C": 20,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Thyme": {
+    "Zone": "5;6;7;8;9",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "6.0-8.0",
+    "Pref. Soil Temp C": 18,
+    "Pref. Air Temp C": 21,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Turnip": {
+    "Zone": "3;4;5;6;7;8;9",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": null,
+    "Pref. Soil Temp C": null,
+    "Pref. Air Temp C": null,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Pref. Air Temp C": null,
+  "Watermelon": {
+    "Zone": "3;4;5;6;7;8;9",
+    "Pref. Light Exposure": "Full",
+    "Pref. Soil pH": "5.0-6.8",
+    "Pref. Soil Temp C": 27,
+    "Pref. Air Temp C": 27,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Winter Savory": {
+    "Zone": "6;7;8;9",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": "6.0-7.0",
+    "Pref. Soil Temp C": 18,
+    "Pref. Air Temp C": 21,
+    "Species Name": null,
+    "Fun Facts": null
+  },
+  "Yam": {
+    "Zone": "8;9;10;11",
+    "Pref. Light Exposure": "Partial",
+    "Pref. Soil pH": null,
+    "Pref. Soil Temp C": null,
+    "Pref. Air Temp C": null,
+    "Species Name": null,
+    "Fun Facts": null
+  }
+}
