@@ -33,7 +33,7 @@ class PvHandler {
  * @param panel_area The area of the solar panel.
  * @return True if the area is within the valid domain, false otherwise.
  */
-  [[nodiscard]] inline static bool VaildateSolarPanelArea(const double panel_area);
+  [[nodiscard]] inline static bool ValidateSolarPanelArea(const double panel_area);
 
  public:
   [[nodiscard]] explicit PvHandler(Coordinates const& coords,

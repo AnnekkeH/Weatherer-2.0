@@ -6,8 +6,7 @@ weatherer::PvData::PvData()
     : date_({}),
       sunrise_time_(0),
       sunset_time_(0),
-      diffuse_radiation_({}),
-      direct_radiation_({}),
+      shortwave_radiation_({}),
       temperature_({}),
       cloud_cover_total_({}),
       wind_speed_({}) {}
@@ -20,8 +19,7 @@ weatherer::PvData::PvData(PvData&& other) noexcept
       : date_(std::move(other.date_)),
         sunrise_time_(other.sunrise_time_),
         sunset_time_(other.sunset_time_),
-        diffuse_radiation_(other.diffuse_radiation_),
-        direct_radiation_(other.direct_radiation_),
+        shortwave_radiation_(other.shortwave_radiation_),
         temperature_(other.temperature_),
         cloud_cover_total_(other.cloud_cover_total_),
         wind_speed_(other.wind_speed_) {}
@@ -32,8 +30,7 @@ weatherer::PvData& weatherer::PvData::operator=(const PvData& other) {
   date_ = other.date_;
   sunrise_time_ = other.sunrise_time_;
   sunset_time_ = other.sunset_time_;
-  diffuse_radiation_ = other.diffuse_radiation_;
-  direct_radiation_ = other.direct_radiation_;
+  shortwave_radiation_ = other.shortwave_radiation_;
   temperature_ = other.temperature_;
   cloud_cover_total_ = other.cloud_cover_total_;
   wind_speed_ = other.wind_speed_;
@@ -45,8 +42,7 @@ weatherer::PvData& weatherer::PvData::operator=(PvData&& other) noexcept {
   date_ = std::move(other.date_);
   sunrise_time_ = other.sunrise_time_;
   sunset_time_ = other.sunset_time_;
-  diffuse_radiation_ = other.diffuse_radiation_;
-  direct_radiation_ = other.direct_radiation_;
+  shortwave_radiation_ = other.shortwave_radiation_;
   temperature_ = other.temperature_;
   cloud_cover_total_ = other.cloud_cover_total_;
   wind_speed_ = other.wind_speed_;
@@ -77,31 +73,16 @@ void weatherer::PvData::SetSunsetTime(const std::time_t sunset_time) {
   sunset_time_ = sunset_time;
 }
 
-std::array<double, 24> weatherer::PvData::GetDiffuseRadiation() const {
-  return diffuse_radiation_;
+std::array<double, 24> weatherer::PvData::GetShortwaveRadiation() const {
+  return shortwave_radiation_;
 }
 
-void weatherer::PvData::SetDiffuseRadiation(
-    const std::array<int, 24>& diffuse_radiation) {
-  diffuse_radiation_ = std::array<double, 24>{};
+void weatherer::PvData::SetShortwaveRadiation(
+    const std::array<int, 24>& shortwave_radiation) {
+  shortwave_radiation_ = std::array<double, 24>{};
   // Divide by 1000 to convert from W/m^2 to kWh/m^2.
-  std::ranges::transform(diffuse_radiation.begin(), diffuse_radiation.end(),
-                         diffuse_radiation_.begin(),
-                         [](const int rad) {
-                           return rad / 1000.0;
-                         });
-}
-
-std::array<double, 24> weatherer::PvData::GetDirectRadiation() const {
-  return direct_radiation_;
-}
-
-void weatherer::PvData::SetDirectRadiation(
-    const std::array<int, 24>& direct_radiation) {
-  direct_radiation_ = std::array<double, 24>{};
-  // Divide by 1000 to convert from W/m^2 to kWh/m^2.
-  std::ranges::transform(direct_radiation.begin(), direct_radiation.end(),
-                         direct_radiation_.begin(),
+  std::ranges::transform(shortwave_radiation.begin(), shortwave_radiation.end(),
+                         shortwave_radiation_.begin(),
                          [](const int rad) {
                            return rad / 1000.0;
                          });

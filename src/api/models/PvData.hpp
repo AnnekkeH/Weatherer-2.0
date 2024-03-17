@@ -25,9 +25,7 @@ class PvData {
   // Military time format (e.g. 00:00, 01:00, 02:00, ..., 23:00)
   std::time_t sunset_time_;
   // Units: kWh/m^2
-  std::array<double, 24> diffuse_radiation_;
-  // Units: kWh/m^2
-  std::array<double, 24> direct_radiation_;
+  std::array<double, 24> shortwave_radiation_;
   // Units: degrees Celsius
   std::array<double, 24> temperature_;
   // Value between 0 and 1
@@ -55,13 +53,9 @@ class PvData {
 
   void SetSunsetTime(const std::time_t sunset_time);
 
-  [[nodiscard]] std::array<double, 24> GetDiffuseRadiation() const;
+  [[nodiscard]] std::array<double, 24> GetShortwaveRadiation() const;
 
-  void SetDiffuseRadiation(const std::array<int, 24>& diffuse_radiation);
-
-  [[nodiscard]] std::array<double, 24> GetDirectRadiation() const;
-
-  void SetDirectRadiation(const std::array<int, 24>& direct_radiation);
+  void SetShortwaveRadiation(const std::array<int, 24>& diffuse_radiation);
 
   [[nodiscard]] std::array<double, 24> GetTemperature() const;
 
@@ -98,11 +92,8 @@ inline std::ostream& operator<<(std::ostream& os, const PvData& obj) {
   };
   os << "Sunrise Time: " << util::Date{obj.sunrise_time_}.ToString() << "\n"
      << "Sunset Time: " << util::Date{obj.sunset_time_}.ToString() << "\n"
-     << "Diffuse Radiation: ";
-  print_arr(obj.diffuse_radiation_);
-  os << "\n"
-     << "Direct Radiation: ";
-  print_arr(obj.direct_radiation_);
+     << "Shortwave Radiation: ";
+  print_arr(obj.shortwave_radiation_);
   os << "\n"
      << "Temperature: ";
   print_arr(obj.temperature_);

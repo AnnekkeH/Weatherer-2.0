@@ -15,7 +15,7 @@ weatherer::PvHandler::PvHandler(Coordinates const& coords,
                                 util::TimeFrame const& time_frame)
     : coords_{coords},
       time_frame_{time_frame},
-      pv_collection_(PvDataProcessor::AggregateAllData(coords, time_frame)) {}
+      pv_collection_(PvDataProcessor::CollectData(coords, time_frame)) {}
 
 weatherer::PvHandler::~PvHandler() = default;
 
@@ -51,7 +51,7 @@ bool weatherer::PvHandler::VaildateSolarPanelEfficiency(
   return true;
 }
 
-bool weatherer::PvHandler::VaildateSolarPanelArea(const double panel_area) {
+bool weatherer::PvHandler::ValidateSolarPanelArea(const double panel_area) {
   [[unlikely]] if (panel_area <= 0) { return false; }
   return true;
 }
@@ -76,7 +76,7 @@ void weatherer::PvHandler::OutputData(std::ostream& os) const {
 //         "Solar panel efficiency must be a value between 0 and 1 (inclusive)");
 //   }
 //
-//   if (!VaildateSolarPanelArea(panel_area)) {
+//   if (!ValidateSolarPanelArea(panel_area)) {
 //     throw std::invalid_argument(
 //         "Solar panel area must be a value greater than 0");
 //   }
@@ -98,7 +98,7 @@ void weatherer::PvHandler::OutputDailyEnergyYeild(
     throw std::invalid_argument(
         "Solar panel efficiency must be a value between 0 and 1 (inclusive)");
   }
-  if (!VaildateSolarPanelArea(panel_area)) {
+  if (!ValidateSolarPanelArea(panel_area)) {
     throw std::invalid_argument(
         "Solar panel area must be a value greater than 0");
   }
