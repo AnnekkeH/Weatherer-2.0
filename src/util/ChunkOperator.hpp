@@ -1,7 +1,10 @@
 #pragma once
 #include <array>
 #include <ranges>
+#include <string>
+#include <string_view>
 #include <vector>
+#include <stdexcept>
 
 namespace weatherer::util {
 /**
@@ -20,7 +23,7 @@ namespace weatherer::util {
  * is returned.
  */
 template <typename Ty_, std::size_t Amt_>
-static std::vector<std::array<Ty_, Amt_>> ChunkVector(
+std::vector<std::array<Ty_, Amt_>> ChunkVector(
     const std::vector<Ty_>& data, std::size_t number) {
   [[unlikely]] if (data.size() % number != 0) {
     throw std::out_of_range("Input data size is not a multiple of number");
@@ -38,4 +41,6 @@ static std::vector<std::array<Ty_, Amt_>> ChunkVector(
 
   return result;
 }
-};  // namespace weatherer::util
+
+std::vector<std::string> SplitString(std::string const& str, std::string_view delimiter);
+} // namespace weatherer::util
